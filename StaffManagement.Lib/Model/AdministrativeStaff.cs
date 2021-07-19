@@ -11,9 +11,9 @@ namespace StaffManagement.Lib.Model
         {
             section = sect;
         }
-        public void PrintDetails()
+        public string GetDetails()
         {
-            Console.WriteLine("| ID:" + id + "| NAME: " + name + "| SECTION: " + section + "|");
+            return ("| ID:" + id + "| NAME: " + name + "| SECTION: " + section + "|");
         }
 
 

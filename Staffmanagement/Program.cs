@@ -34,10 +34,11 @@ namespace Staffmanagement
         static void Main(string[] args)
         {
             //var a = default(int);
-            //String nameOfStaff;
-            //String sectionOfStaff;
+            String nameOfStaff;
+            String sectionOfStaff;
             int newid = 1;
             int tempId;
+            bool ret;
             //AdministrativeStaff tempStaff;
             //List<AdministrativeStaff> adminstaff = new List<AdministrativeStaff>();
             AdministrativeStaffs adminstaffs = new AdministrativeStaffs();
@@ -57,35 +58,58 @@ namespace Staffmanagement
                 {
                     case 1:
                         //add staff
-                        adminstaffs.AddStaff(newid);
+                        Console.WriteLine("enter name");
+                        nameOfStaff = Console.ReadLine();
+                        Console.WriteLine("enter section");
+                        sectionOfStaff = Console.ReadLine();
+                        adminstaffs.AddStaff(new AdministrativeStaff(newid,nameOfStaff,sectionOfStaff));
                         newid++;
                         break;
 
 
                     case 2:
                         //view details of all
-                        adminstaffs.ViewStaff();
+                        Console.WriteLine(adminstaffs.ViewStaff());
                         break;
 
 
                     case 3:
                         //view details of one staff
                         tempId = GetIdFromUser();
-                        adminstaffs.ViewStaff(tempId);
+                        Console.WriteLine(adminstaffs.ViewStaff(tempId));
                         break;
 
 
                     case 4:
                         //update
                         tempId = GetIdFromUser();
-                        adminstaffs.UpdateStaff(tempId);
+                        Console.WriteLine("enter name");
+                        nameOfStaff = Console.ReadLine();
+                        Console.WriteLine("enter section");
+                        sectionOfStaff = Console.ReadLine();
+                        ret = adminstaffs.UpdateStaff(tempId, new AdministrativeStaff(newid, nameOfStaff, sectionOfStaff));
+                        if (ret)
+                        {
+                            Console.WriteLine("update success");
+                        }
+                        else
+                        {
+                            Console.WriteLine("update failed");
+                        }
                         break;
 
 
                     case 5:
                         //delete
                         tempId = GetIdFromUser();
-                        adminstaffs.DeleteStaff(tempId);
+                        ret = adminstaffs.DeleteStaff(tempId);
+                        if (ret){
+                            Console.WriteLine("deleted successfully");
+                        }
+                        else
+                        {
+                            Console.WriteLine("delete failed");
+                        }
                         break;
 
                     case 6:

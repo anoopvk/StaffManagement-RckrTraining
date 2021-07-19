@@ -12,12 +12,7 @@ namespace StaffManagement.Lib.Model
             name = sName;
 
         }
-        public void UpdateName()
-        {
-            //String newName;
-            Console.WriteLine("enter name");
-            name = Console.ReadLine();
-        }
+      
 
     }
 }
