@@ -1,0 +1,16 @@
+C:\Users\Anoop\source\repos\Staffmanagement\Staffmanagement\bin\Debug\net5.0\Staffmanagement.exe
+C:\Users\Anoop\source\repos\Staffmanagement\Staffmanagement\bin\Debug\net5.0\Staffmanagement.deps.json
+C:\Users\Anoop\source\repos\Staffmanagement\Staffmanagement\bin\Debug\net5.0\Staffmanagement.runtimeconfig.json
+C:\Users\Anoop\source\repos\Staffmanagement\Staffmanagement\bin\Debug\net5.0\Staffmanagement.runtimeconfig.dev.json
+C:\Users\Anoop\source\repos\Staffmanagement\Staffmanagement\bin\Debug\net5.0\Staffmanagement.dll
+C:\Users\Anoop\source\repos\Staffmanagement\Staffmanagement\bin\Debug\net5.0\ref\Staffmanagement.dll
+C:\Users\Anoop\source\repos\Staffmanagement\Staffmanagement\bin\Debug\net5.0\Staffmanagement.pdb
+C:\Users\Anoop\source\repos\Staffmanagement\Staffmanagement\obj\Debug\net5.0\Staffmanagement.csproj.AssemblyReference.cache
+C:\Users\Anoop\source\repos\Staffmanagement\Staffmanagement\obj\Debug\net5.0\Staffmanagement.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Anoop\source\repos\Staffmanagement\Staffmanagement\obj\Debug\net5.0\Staffmanagement.AssemblyInfoInputs.cache
+C:\Users\Anoop\source\repos\Staffmanagement\Staffmanagement\obj\Debug\net5.0\Staffmanagement.AssemblyInfo.cs
+C:\Users\Anoop\source\repos\Staffmanagement\Staffmanagement\obj\Debug\net5.0\Staffmanagement.csproj.CoreCompileInputs.cache
+C:\Users\Anoop\source\repos\Staffmanagement\Staffmanagement\obj\Debug\net5.0\Staffmanagement.dll
+C:\Users\Anoop\source\repos\Staffmanagement\Staffmanagement\obj\Debug\net5.0\ref\Staffmanagement.dll
+C:\Users\Anoop\source\repos\Staffmanagement\Staffmanagement\obj\Debug\net5.0\Staffmanagement.pdb
+C:\Users\Anoop\source\repos\Staffmanagement\Staffmanagement\obj\Debug\net5.0\Staffmanagement.genruntimeconfig.cache
