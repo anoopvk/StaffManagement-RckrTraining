@@ -1,0 +1,36 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v5.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v5.0": {
+      "StaffManagement.Data/1.0.0": {
+        "dependencies": {
+          "StaffManagement.Lib": "1.0.0"
+        },
+        "runtime": {
+          "StaffManagement.Data.dll": {}
+        }
+      },
+      "StaffManagement.Lib/1.0.0": {
+        "runtime": {
+          "StaffManagement.Lib.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "StaffManagement.Data/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "StaffManagement.Lib/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

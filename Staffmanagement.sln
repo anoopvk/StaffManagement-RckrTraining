@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StaffManagement.Console", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StaffManagement.Lib", "StaffManagement.Lib\StaffManagement.Lib.csproj", "{971CFE16-E0E3-4304-A852-FAA1BF110157}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StaffManagement.Data", "StaffManagement.Data\StaffManagement.Data.csproj", "{BC32A692-2EC0-431E-9786-59C5BEE8FD22}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{971CFE16-E0E3-4304-A852-FAA1BF110157}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{971CFE16-E0E3-4304-A852-FAA1BF110157}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{971CFE16-E0E3-4304-A852-FAA1BF110157}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BC32A692-2EC0-431E-9786-59C5BEE8FD22}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC32A692-2EC0-431E-9786-59C5BEE8FD22}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC32A692-2EC0-431E-9786-59C5BEE8FD22}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC32A692-2EC0-431E-9786-59C5BEE8FD22}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

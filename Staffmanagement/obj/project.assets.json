@@ -2,6 +2,19 @@
   "version": 3,
   "targets": {
     "net5.0": {
+      "StaffManagement.Data/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v5.0",
+        "dependencies": {
+          "StaffManagement.Lib": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/StaffManagement.Data.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/StaffManagement.Data.dll": {}
+        }
+      },
       "StaffManagement.Lib/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v5.0",
@@ -15,6 +28,11 @@
     }
   },
   "libraries": {
+    "StaffManagement.Data/1.0.0": {
+      "type": "project",
+      "path": "../StaffManagement.Data/StaffManagement.Data.csproj",
+      "msbuildProject": "../StaffManagement.Data/StaffManagement.Data.csproj"
+    },
     "StaffManagement.Lib/1.0.0": {
       "type": "project",
       "path": "../StaffManagement.Lib/StaffManagement.Lib.csproj",
@@ -23,6 +41,7 @@
   },
   "projectFileDependencyGroups": {
     "net5.0": [
+      "StaffManagement.Data >= 1.0.0",
       "StaffManagement.Lib >= 1.0.0"
     ]
   },
@@ -60,6 +79,9 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
+            "C:\\Users\\Anoop\\source\\repos\\Staffmanagement\\StaffManagement.Data\\StaffManagement.Data.csproj": {
+              "projectPath": "C:\\Users\\Anoop\\source\\repos\\Staffmanagement\\StaffManagement.Data\\StaffManagement.Data.csproj"
+            },
             "C:\\Users\\Anoop\\source\\repos\\Staffmanagement\\StaffManagement.Lib\\StaffManagement.Lib.csproj": {
               "projectPath": "C:\\Users\\Anoop\\source\\repos\\Staffmanagement\\StaffManagement.Lib\\StaffManagement.Lib.csproj"
             }

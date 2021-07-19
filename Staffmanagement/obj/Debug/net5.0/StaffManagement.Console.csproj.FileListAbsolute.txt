@@ -17,3 +17,5 @@ C:\Users\Anoop\source\repos\Staffmanagement\Staffmanagement\obj\Debug\net5.0\Sta
 C:\Users\Anoop\source\repos\Staffmanagement\Staffmanagement\obj\Debug\net5.0\ref\StaffManagement.Console.dll
 C:\Users\Anoop\source\repos\Staffmanagement\Staffmanagement\obj\Debug\net5.0\StaffManagement.Console.pdb
 C:\Users\Anoop\source\repos\Staffmanagement\Staffmanagement\obj\Debug\net5.0\StaffManagement.Console.genruntimeconfig.cache
+C:\Users\Anoop\source\repos\Staffmanagement\Staffmanagement\bin\Debug\net5.0\StaffManagement.Data.dll
+C:\Users\Anoop\source\repos\Staffmanagement\Staffmanagement\bin\Debug\net5.0\StaffManagement.Data.pdb

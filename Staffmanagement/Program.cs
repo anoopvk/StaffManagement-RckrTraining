@@ -1,4 +1,5 @@
-﻿using StaffManagement.Lib.Model;
+﻿using StaffManagement.Data;
+using StaffManagement.Lib.Model;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -41,7 +42,7 @@ namespace Staffmanagement
             bool ret;
             //AdministrativeStaff tempStaff;
             //List<AdministrativeStaff> adminstaff = new List<AdministrativeStaff>();
-            AdministrativeStaffs adminstaffs = new AdministrativeStaffs();
+            InMemoryStaffRepository staffRepository = new InMemoryStaffRepository();
 
             bool runFlag = true;
             while (runFlag){
@@ -62,21 +63,36 @@ namespace Staffmanagement
                         nameOfStaff = Console.ReadLine();
                         Console.WriteLine("enter section");
                         sectionOfStaff = Console.ReadLine();
-                        adminstaffs.AddStaff(new AdministrativeStaff(newid,nameOfStaff,sectionOfStaff));
+                        staffRepository.AddStaff(new AdministrativeStaff(newid,nameOfStaff,sectionOfStaff));
                         newid++;
                         break;
 
 
                     case 2:
                         //view details of all
-                        Console.WriteLine(adminstaffs.ViewStaff());
+                        List<Staff> listOfAllStaff = staffRepository.GetAllStaff();
+                        if (listOfAllStaff==null) 
+                        {
+                            Console.WriteLine("empty");
+                            break;
+                        }
+                        foreach (Staff s in listOfAllStaff)
+                        {
+                            Console.WriteLine(s);
+                        }
                         break;
 
 
                     case 3:
                         //view details of one staff
                         tempId = GetIdFromUser();
-                        Console.WriteLine(adminstaffs.ViewStaff(tempId));
+                        Staff staffFromSearch = staffRepository.GetStaff(tempId);
+                        if (staffFromSearch == null)
+                        {
+                            Console.WriteLine("not found");
+                            break;
+                        }
+                        Console.WriteLine(staffFromSearch);
                         break;
 
 
@@ -87,7 +103,7 @@ namespace Staffmanagement
                         nameOfStaff = Console.ReadLine();
                         Console.WriteLine("enter section");
                         sectionOfStaff = Console.ReadLine();
-                        ret = adminstaffs.UpdateStaff(tempId, new AdministrativeStaff(newid, nameOfStaff, sectionOfStaff));
+                        ret = staffRepository.UpdateStaff(tempId, new AdministrativeStaff(newid, nameOfStaff, sectionOfStaff));
                         if (ret)
                         {
                             Console.WriteLine("update success");
@@ -102,7 +118,7 @@ namespace Staffmanagement
                     case 5:
                         //delete
                         tempId = GetIdFromUser();
-                        ret = adminstaffs.DeleteStaff(tempId);
+                        ret = staffRepository.DeleteStaff(tempId);
                         if (ret){
                             Console.WriteLine("deleted successfully");
                         }

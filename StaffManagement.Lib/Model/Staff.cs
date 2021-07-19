@@ -12,7 +12,11 @@ namespace StaffManagement.Lib.Model
             name = sName;
 
         }
-      
+
+        public override string ToString()
+        {
+            return $"| ID: {id} | NAME: {name}";
+        }
 
     }
 }

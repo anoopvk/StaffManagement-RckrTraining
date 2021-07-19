@@ -15,7 +15,10 @@ namespace StaffManagement.Lib.Model
         {
             return ("| ID:" + id + "| NAME: " + name + "| SECTION: " + section + "|");
         }
-
+        public override string ToString()
+        {
+            return $" {base.ToString()} | SECTION: {section}" ;
+        }
 
     }
 }
