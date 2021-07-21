@@ -17,7 +17,7 @@ namespace StaffManagement.Lib.Model
         }
         public override string ToString()
         {
-            return $" {base.ToString()} | SECTION: {section}" ;
+            return $"(Administrative staff---) {base.ToString()} | SECTION: {section}" ;
         }
 
     }

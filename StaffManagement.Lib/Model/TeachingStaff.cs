@@ -1,14 +1,19 @@
-﻿using System.Collections;
+﻿using System.Collections.Generic;
 
 namespace StaffManagement.Lib.Model
 {
-    class TeachingStaff : Staff
+    public class TeachingStaff : Staff
     {
-        //string[] subjectsHandled = new string[100];
-        public ArrayList subjectsHandled = new ArrayList();
-        public TeachingStaff(int sId, string sName, ArrayList subjects):base( sId,  sName)
+        public List<string> subjectsHandled;
+
+        public TeachingStaff(int sId, string sName, List<string> subjectsHandledInput) : base(sId, sName)
         {
-            subjectsHandled.AddRange(subjects);
+            subjectsHandled = subjectsHandledInput;
+        }
+
+        public override string ToString()
+        {
+            return $"(Teaching staff---------) {base.ToString()} |SUBJECTS HANDLED : {string.Join((" , "), subjectsHandled.ToArray()) }" ;
         }
 
     }

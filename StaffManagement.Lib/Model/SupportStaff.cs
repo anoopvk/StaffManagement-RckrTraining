@@ -1,16 +1,20 @@
-﻿using System;
+﻿using System.Collections.Generic;
 
 namespace StaffManagement.Lib.Model
 {
-    class SupportStaff : Staff
+    public class SupportStaff : Staff
     {
-        //string[] subjectsHandled = new string[100];
-        String building;
+        public string building;
 
-        public SupportStaff(int sId, string sName,String mybuilding):base(sId, sName)
+        public SupportStaff(int sId, string sName, string sBuilding ) : base(sId, sName)
         {
-            building = mybuilding;
+            building = sBuilding;
+        }
+
+        public override string ToString()
+        {
+            return $"(Support staff----------) {base.ToString()} | BUILDING : {building}";
         }
 
     }
-}
+} 

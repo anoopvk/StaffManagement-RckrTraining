@@ -16,17 +16,66 @@ namespace Staffmanagement
             tempId = Convert.ToInt32(Console.ReadLine());
             return tempId;
         }
+        public static Staff createStaffThroughUserInput(int newid)
+        {
+            int staffTypeKey;
+            int numberOfSubjectsHandled;
+            List<string> subjectsHandled = new List<string>();
+            string supportStaffBuilding;
+            String nameOfStaff;
+            String sectionOfStaff;
+
+            Console.WriteLine("enter name");
+            nameOfStaff = Console.ReadLine();
+
+
+            Console.WriteLine("enter 1 for Administrative staff ");
+            Console.WriteLine("enter 2 for Teaching staff ");
+            Console.WriteLine("enter 3 for Support staff");
+            staffTypeKey = Convert.ToInt32(Console.ReadLine());
+
+            if (staffTypeKey == 1) // administrative staff
+            {
+                Console.WriteLine("enter section");
+                sectionOfStaff = Console.ReadLine();
+                return (new AdministrativeStaff(newid, nameOfStaff, sectionOfStaff));
+
+            }
+            else if (staffTypeKey == 2) // teaching staff
+            {
+                Console.WriteLine("enter number of subjects handled");
+                numberOfSubjectsHandled = Convert.ToInt32(Console.ReadLine());
+                Console.WriteLine("enter subject names : ");
+                for (int i = 0; i < numberOfSubjectsHandled; i++)
+                {
+                    subjectsHandled.Add(Console.ReadLine());
+                }
+                return (new TeachingStaff(newid, nameOfStaff, subjectsHandled));
+            }
+            else if (staffTypeKey == 3) // support staff
+            {
+                Console.WriteLine("enter building");
+                supportStaffBuilding = Console.ReadLine();
+                return (new SupportStaff(newid, nameOfStaff, supportStaffBuilding));
+            }
+            else
+            {
+                Console.WriteLine("invalid choice");
+                return null;
+            }
+        }
+
+
 
         static void Main(string[] args)
         {
             //var a = default(int);
-            String nameOfStaff;
-            String sectionOfStaff;
+            
             int newid = 1;
-            int tempId;
+            int userInputIdForSearching;
             bool ret;
-            //AdministrativeStaff tempStaff;
-            //List<AdministrativeStaff> adminstaff = new List<AdministrativeStaff>();
+            Staff newStaff;
+
             InMemoryStaffRepository staffRepository = new InMemoryStaffRepository();
 
             bool runFlag = true;
@@ -44,12 +93,12 @@ namespace Staffmanagement
                 {
                     case 1:
                         //add staff
-                        Console.WriteLine("enter name");
-                        nameOfStaff = Console.ReadLine();
-                        Console.WriteLine("enter section");
-                        sectionOfStaff = Console.ReadLine();
-                        staffRepository.AddStaff(new AdministrativeStaff(newid,nameOfStaff,sectionOfStaff));
+                        newStaff = createStaffThroughUserInput(newid);
+                        if (newStaff != null)
+                        {
+                        staffRepository.AddStaff(newStaff);
                         newid++;
+                        }
                         break;
 
 
@@ -70,27 +119,29 @@ namespace Staffmanagement
 
                     case 3:
                         //view details of one staff
-                        tempId = GetIdFromUser();
-                        Staff staffFromSearch = staffRepository.GetStaff(tempId);
+                        userInputIdForSearching = GetIdFromUser();
+                        Staff staffFromSearch = staffRepository.GetStaff(userInputIdForSearching);
                         if (staffFromSearch == null)
                         {
                             Console.WriteLine("not found");
                             break;
                         }
-                        staffFromSearch.id = 99;
+                        //staffFromSearch.id = 99;
                         Console.WriteLine(staffFromSearch);
                         break;
 
 
                     case 4:
                         //update
-                        tempId = GetIdFromUser();
-                        Console.WriteLine("enter name");
-                        nameOfStaff = Console.ReadLine();
-                        Console.WriteLine("enter section");
-                        sectionOfStaff = Console.ReadLine();
+                        userInputIdForSearching = GetIdFromUser();
+                        newStaff = createStaffThroughUserInput(userInputIdForSearching);
+                        ret = false;
 
-                        ret = staffRepository.UpdateStaff(tempId, new AdministrativeStaff(newid, nameOfStaff, sectionOfStaff));
+                        if (newStaff != null)
+                        {
+                        ret = staffRepository.UpdateStaff(userInputIdForSearching, newStaff);
+                        }
+
                         if (ret)
                         {
                             Console.WriteLine("update success");
@@ -99,13 +150,14 @@ namespace Staffmanagement
                         {
                             Console.WriteLine("update failed");
                         }
+
                         break;
 
 
                     case 5:
                         //delete
-                        tempId = GetIdFromUser();
-                        ret = staffRepository.DeleteStaff(tempId);
+                        userInputIdForSearching = GetIdFromUser();
+                        ret = staffRepository.DeleteStaff(userInputIdForSearching);
                         if (ret){
                             Console.WriteLine("deleted successfully");
                         }
