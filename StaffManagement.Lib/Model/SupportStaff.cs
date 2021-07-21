@@ -4,16 +4,19 @@ namespace StaffManagement.Lib.Model
 {
     public class SupportStaff : Staff
     {
-        public string building;
+        public string Building
+        {
+            get;
+        }
 
         public SupportStaff(int sId, string sName, string sBuilding ) : base(sId, sName)
         {
-            building = sBuilding;
+            Building = sBuilding;
         }
 
         public override string ToString()
         {
-            return $"(Support staff----------) {base.ToString()} | BUILDING : {building}";
+            return $"(Support staffe staff---) {base.ToString()} | BUILDING : {Building}";
         }
 
     }

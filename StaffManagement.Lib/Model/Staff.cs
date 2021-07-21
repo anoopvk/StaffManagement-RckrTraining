@@ -3,19 +3,26 @@ namespace StaffManagement.Lib.Model
 {
     public class Staff
     {
-        public int id;
-        public string name;
+        public int Id
+        {
+            get;
+        }
+        public string Name
+        {
+            get;
+        }
+
 
         public Staff(int sId, string sName)
         {
-            id = sId;
-            name = sName;
+            Id = sId;
+            Name = sName;
 
         }
 
         public override string ToString()
         {
-            return $"| ID: {id} | NAME: {name}";
+            return $"| ID: {Id} | NAME: {Name}";
         }
 
     }

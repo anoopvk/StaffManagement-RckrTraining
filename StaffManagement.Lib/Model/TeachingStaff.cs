@@ -4,17 +4,21 @@ namespace StaffManagement.Lib.Model
 {
     public class TeachingStaff : Staff
     {
-        public List<string> subjectsHandled;
+        public List<string> SubjectsHandled
+        {
+            get;
+        }
 
         public TeachingStaff(int sId, string sName, List<string> subjectsHandledInput) : base(sId, sName)
         {
-            subjectsHandled = subjectsHandledInput;
+            SubjectsHandled = subjectsHandledInput;
         }
 
         public override string ToString()
         {
-            return $"(Teaching staff---------) {base.ToString()} |SUBJECTS HANDLED : {string.Join((" , "), subjectsHandled.ToArray()) }" ;
+            return $"(Teaching staff---------) {base.ToString()} |SUBJECTS HANDLED : {string.Join((" , "), SubjectsHandled.ToArray()) }" ;
         }
 
     }
+    
 }

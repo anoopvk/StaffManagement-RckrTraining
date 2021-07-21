@@ -23,7 +23,7 @@ namespace StaffManagement.Data
         }
         public Staff GetStaff(int staffId)
         {
-            return staffList.Find(x => x.id == staffId);
+            return staffList.Find(x => x.Id == staffId);
         }
         public List<Staff> GetAllStaff()
         {
@@ -37,7 +37,7 @@ namespace StaffManagement.Data
             {
                 return false;
             }
-            int staffIndexToUpdate = staffList.FindIndex(x => x.id == id);
+            int staffIndexToUpdate = staffList.FindIndex(x => x.Id == id);
             if (staffIndexToUpdate == -1)
             {
                 return false;
@@ -52,7 +52,7 @@ namespace StaffManagement.Data
             {
                 return false;
             }
-            int staffIndexToDelete  = staffList.FindIndex(x => x.id == idToDelete);
+            int staffIndexToDelete  = staffList.FindIndex(x => x.Id == idToDelete);
             if (staffIndexToDelete == -1)
             {
                 return false;

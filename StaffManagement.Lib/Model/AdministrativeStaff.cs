@@ -5,19 +5,20 @@ namespace StaffManagement.Lib.Model
     public class AdministrativeStaff : Staff
     {
         //string[] subjectsHandled = new string[100];
-        public String section;
+        String Section
+        {
+            get;
+        }
 
         public AdministrativeStaff(int sId, string sName,String sect): base(sId, sName)
         {
-            section = sect;
+            Section = sect;
         }
-        public string GetDetails()
-        {
-            return ("| ID:" + id + "| NAME: " + name + "| SECTION: " + section + "|");
-        }
+
+
         public override string ToString()
         {
-            return $"(Administrative staff---) {base.ToString()} | SECTION: {section}" ;
+            return $"(Administrative staff---) {base.ToString()} | SECTION: {Section}" ;
         }
 
     }

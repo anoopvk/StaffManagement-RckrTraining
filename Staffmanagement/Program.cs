@@ -69,6 +69,10 @@ namespace Staffmanagement
 
         static void Main(string[] args)
         {
+
+            TeachingStaff teacher = new TeachingStaff(1, "abc",new List<string>() {"a","b","c"});
+            teacher.SubjectsHandled.Add("d");
+
             //var a = default(int);
             
             int newid = 1;
@@ -110,6 +114,7 @@ namespace Staffmanagement
                             Console.WriteLine("empty");
                             break;
                         }
+                        
                         foreach (Staff s in listOfAllStaff)
                         {
                             Console.WriteLine(s);
@@ -127,6 +132,7 @@ namespace Staffmanagement
                             break;
                         }
                         //staffFromSearch.id = 99;
+                        
                         Console.WriteLine(staffFromSearch);
                         break;
 
@@ -170,6 +176,10 @@ namespace Staffmanagement
                     case 6:
                         //exit
                         runFlag = false;
+                        break;
+
+                    default:
+                        Console.WriteLine("invalid!");
                         break;
 
                 }
