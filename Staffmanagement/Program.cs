@@ -16,21 +16,6 @@ namespace Staffmanagement
             tempId = Convert.ToInt32(Console.ReadLine());
             return tempId;
         }
-        public static AdministrativeStaff GetStaffUsingIDFromUser(List<AdministrativeStaff> staffList)
-        {
-            int tempId;
-            Console.WriteLine("enter the id of the staff");
-            tempId = Convert.ToInt32(Console.ReadLine());
-            return staffList.Find(x => x.id == tempId);
-        }
-        public static bool IsAdminStaffEmpty(List<AdministrativeStaff> staffList)
-        {
-            if (staffList.Count == 0){
-                Console.WriteLine("....empty....");
-                return true;
-            }
-            return false;
-        }
 
         static void Main(string[] args)
         {
@@ -92,6 +77,7 @@ namespace Staffmanagement
                             Console.WriteLine("not found");
                             break;
                         }
+                        staffFromSearch.id = 99;
                         Console.WriteLine(staffFromSearch);
                         break;
 
@@ -103,6 +89,7 @@ namespace Staffmanagement
                         nameOfStaff = Console.ReadLine();
                         Console.WriteLine("enter section");
                         sectionOfStaff = Console.ReadLine();
+
                         ret = staffRepository.UpdateStaff(tempId, new AdministrativeStaff(newid, nameOfStaff, sectionOfStaff));
                         if (ret)
                         {
