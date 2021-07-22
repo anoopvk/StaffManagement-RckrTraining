@@ -1,4 +1,5 @@
-﻿using StaffManagement.Data;
+﻿using StaffManagement;
+using StaffManagement.Data;
 using StaffManagement.Lib.Model;
 using System;
 using System.Collections;
@@ -9,13 +10,7 @@ namespace Staffmanagement
 
     class Program
     {
-        public static int GetIdFromUser()
-        {
-            int tempId;
-            Console.WriteLine("enter the id of the staff");
-            tempId = Convert.ToInt32(Console.ReadLine());
-            return tempId;
-        }
+        
         public static Staff createStaffThroughUserInput(int newid)
         {
             int staffTypeKey;
@@ -97,28 +92,13 @@ namespace Staffmanagement
                 {
                     case 1:
                         //add staff
-                        newStaff = createStaffThroughUserInput(newid);
-                        if (newStaff != null)
-                        {
-                            staffRepository.AddStaff(newStaff);
-                            newid++;
-                        }
+                        ConsoleStaffManager.AddNewStaff();
                         break;
 
 
                     case 2:
                         //view details of all
-                        List<Staff> listOfAllStaff = staffRepository.GetAllStaff();
-                        if (listOfAllStaff==null) 
-                        {
-                            Console.WriteLine("empty");
-                            break;
-                        }
-                        
-                        foreach (Staff s in listOfAllStaff)
-                        {
-                            Console.WriteLine(s);
-                        }
+                        ConsoleStaffManager.ViewAllStaff();
                         break;
 
 

@@ -50,7 +50,7 @@ namespace StaffManagement
         }
 
 
-        public static Staff CreateStaffThroughUserInput(int newid)
+        static Staff CreateStaffThroughUserInput(int newid)
         {
             String nameOfStaff = GetNameOfStaff();
 
@@ -83,13 +83,43 @@ namespace StaffManagement
         }
 
 
+        public static int GetIdFromUser()
+        {
+            int tempId;
+            Console.WriteLine("enter the id of the staff");
+            tempId = Convert.ToInt32(Console.ReadLine());
+            return tempId;
+        }
+
+
         public static void AddNewStaff()
         {
             Staff newStaff = CreateStaffThroughUserInput(s_newId);
             staffRepository.AddStaff(newStaff);
             s_newId++;
         }
-
+        public static void ViewAllStaff()
+        {
+            List<Staff> listOfAllStaff = staffRepository.GetAllStaff();
+            if (listOfAllStaff == null)
+            {
+                Console.WriteLine("empty");
+            }
+            foreach (Staff s in listOfAllStaff)
+            {
+                Console.WriteLine(s);
+            }
+        }
+        public static void ViewOneStaff()
+        {
+            int userInputIdForSearching = GetIdFromUser();
+            Staff staffFromSearch = staffRepository.GetStaff(userInputIdForSearching);
+            if (staffFromSearch == null)
+            {
+                Console.WriteLine("not found");
+            }
+            Console.WriteLine(staffFromSearch);
+        }
 
     }
 }
