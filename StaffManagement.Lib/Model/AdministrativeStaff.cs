@@ -2,7 +2,7 @@
 
 namespace StaffManagement.Lib.Model
 {
-    public class AdministrativeStaff : Staff
+     class AdministrativeStaff : Staff
     {
         //string[] subjectsHandled = new string[100];
         String Section
@@ -10,7 +10,7 @@ namespace StaffManagement.Lib.Model
             get;
         }
 
-        public AdministrativeStaff(int sId, string sName,String sect): base(sId, sName)
+        public AdministrativeStaff(int sId, string sName, String sect) : base(sId, sName)
         {
             Section = sect;
         }

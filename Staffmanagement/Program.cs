@@ -100,8 +100,8 @@ namespace Staffmanagement
                         newStaff = createStaffThroughUserInput(newid);
                         if (newStaff != null)
                         {
-                        staffRepository.AddStaff(newStaff);
-                        newid++;
+                            staffRepository.AddStaff(newStaff);
+                            newid++;
                         }
                         break;
 
@@ -145,7 +145,7 @@ namespace Staffmanagement
 
                         if (newStaff != null)
                         {
-                        ret = staffRepository.UpdateStaff(userInputIdForSearching, newStaff);
+                            ret = staffRepository.UpdateStaff(userInputIdForSearching, newStaff);
                         }
 
                         if (ret)

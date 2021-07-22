@@ -1,7 +1,7 @@
 ﻿using System;
 namespace StaffManagement.Lib.Model
 {
-    public class Staff
+    public abstract class Staff
     {
         public int Id
         {

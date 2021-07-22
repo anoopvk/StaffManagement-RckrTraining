@@ -19,7 +19,10 @@ namespace StaffManagement.Data
 
         public void AddStaff(Staff s)
         {
-            staffList.Add(s);
+            if (s != null)
+            {
+                staffList.Add(s);
+            }
         }
         public Staff GetStaff(int staffId)
         {
