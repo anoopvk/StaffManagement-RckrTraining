@@ -10,73 +10,8 @@ namespace Staffmanagement
 
     class Program
     {
-        
-        public static Staff createStaffThroughUserInput(int newid)
-        {
-            int staffTypeKey;
-            int numberOfSubjectsHandled;
-            List<string> subjectsHandled = new List<string>();
-            string supportStaffBuilding;
-            String nameOfStaff;
-            String sectionOfStaff;
-
-            Console.WriteLine("enter name");
-            nameOfStaff = Console.ReadLine();
-
-
-            Console.WriteLine("enter 1 for Administrative staff ");
-            Console.WriteLine("enter 2 for Teaching staff ");
-            Console.WriteLine("enter 3 for Support staff");
-            staffTypeKey = Convert.ToInt32(Console.ReadLine());
-
-            if (staffTypeKey == 1) // administrative staff
-            {
-                Console.WriteLine("enter section");
-                sectionOfStaff = Console.ReadLine();
-                return (new AdministrativeStaff(newid, nameOfStaff, sectionOfStaff));
-
-            }
-            else if (staffTypeKey == 2) // teaching staff
-            {
-                Console.WriteLine("enter number of subjects handled");
-                numberOfSubjectsHandled = Convert.ToInt32(Console.ReadLine());
-                Console.WriteLine("enter subject names : ");
-                for (int i = 0; i < numberOfSubjectsHandled; i++)
-                {
-                    subjectsHandled.Add(Console.ReadLine());
-                }
-                return (new TeachingStaff(newid, nameOfStaff, subjectsHandled));
-            }
-            else if (staffTypeKey == 3) // support staff
-            {
-                Console.WriteLine("enter building");
-                supportStaffBuilding = Console.ReadLine();
-                return (new SupportStaff(newid, nameOfStaff, supportStaffBuilding));
-            }
-            else
-            {
-                Console.WriteLine("invalid choice");
-                return null;
-            }
-        }
-
-
-
         static void Main(string[] args)
         {
-
-            TeachingStaff teacher = new TeachingStaff(1, "abc",new List<string>() {"a","b","c"});
-            teacher.SubjectsHandled.Add("d");
-
-            //var a = default(int);
-            
-            int newid = 1;
-            int userInputIdForSearching;
-            bool ret;
-            Staff newStaff;
-
-            InMemoryStaffRepository staffRepository = new InMemoryStaffRepository();
-
             bool runFlag = true;
             while (runFlag){
                 Console.WriteLine("enter 1 to add a staff ");
@@ -95,62 +30,24 @@ namespace Staffmanagement
                         ConsoleStaffManager.AddNewStaff();
                         break;
 
-
                     case 2:
                         //view details of all
                         ConsoleStaffManager.ViewAllStaff();
                         break;
 
-
                     case 3:
                         //view details of one staff
-                        userInputIdForSearching = GetIdFromUser();
-                        Staff staffFromSearch = staffRepository.GetStaff(userInputIdForSearching);
-                        if (staffFromSearch == null)
-                        {
-                            Console.WriteLine("not found");
-                            break;
-                        }
-                        //staffFromSearch.id = 99;
-                        
-                        Console.WriteLine(staffFromSearch);
+                        ConsoleStaffManager.ViewOneStaff();
                         break;
-
 
                     case 4:
                         //update
-                        userInputIdForSearching = GetIdFromUser();
-                        newStaff = createStaffThroughUserInput(userInputIdForSearching);
-                        ret = false;
-
-                        if (newStaff != null)
-                        {
-                            ret = staffRepository.UpdateStaff(userInputIdForSearching, newStaff);
-                        }
-
-                        if (ret)
-                        {
-                            Console.WriteLine("update success");
-                        }
-                        else
-                        {
-                            Console.WriteLine("update failed");
-                        }
-
+                        ConsoleStaffManager.UpdateStaff();
                         break;
-
 
                     case 5:
                         //delete
-                        userInputIdForSearching = GetIdFromUser();
-                        ret = staffRepository.DeleteStaff(userInputIdForSearching);
-                        if (ret){
-                            Console.WriteLine("deleted successfully");
-                        }
-                        else
-                        {
-                            Console.WriteLine("delete failed");
-                        }
+                        ConsoleStaffManager.DeleteStaff();
                         break;
 
                     case 6:

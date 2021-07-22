@@ -2,10 +2,10 @@
 
 namespace StaffManagement.Lib.Model
 {
-     class AdministrativeStaff : Staff
+    public class AdministrativeStaff : Staff
     {
         //string[] subjectsHandled = new string[100];
-        String Section
+        public String Section
         {
             get;
         }

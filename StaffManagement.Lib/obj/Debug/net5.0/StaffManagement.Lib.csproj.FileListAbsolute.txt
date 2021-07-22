@@ -9,3 +9,4 @@ C:\Users\Anoop\source\repos\Staffmanagement\StaffManagement.Lib\obj\Debug\net5.0
 C:\Users\Anoop\source\repos\Staffmanagement\StaffManagement.Lib\obj\Debug\net5.0\StaffManagement.Lib.dll
 C:\Users\Anoop\source\repos\Staffmanagement\StaffManagement.Lib\obj\Debug\net5.0\ref\StaffManagement.Lib.dll
 C:\Users\Anoop\source\repos\Staffmanagement\StaffManagement.Lib\obj\Debug\net5.0\StaffManagement.Lib.pdb
+C:\Users\Anoop\source\repos\Staffmanagement\StaffManagement.Lib\obj\Debug\net5.0\StaffManagement.Lib.csproj.AssemblyReference.cache

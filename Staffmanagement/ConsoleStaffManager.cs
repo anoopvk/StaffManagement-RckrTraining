@@ -98,6 +98,8 @@ namespace StaffManagement
             staffRepository.AddStaff(newStaff);
             s_newId++;
         }
+
+
         public static void ViewAllStaff()
         {
             List<Staff> listOfAllStaff = staffRepository.GetAllStaff();
@@ -110,6 +112,8 @@ namespace StaffManagement
                 Console.WriteLine(s);
             }
         }
+
+
         public static void ViewOneStaff()
         {
             int userInputIdForSearching = GetIdFromUser();
@@ -121,5 +125,116 @@ namespace StaffManagement
             Console.WriteLine(staffFromSearch);
         }
 
+        static string GetUserResponseForQuestion(string question)
+        {
+            Console.WriteLine(question);
+            return Console.ReadLine();
+        }
+
+        static string GetUpdatedNameFromUser(string oldName)
+        {
+            string userResponse = GetUserResponseForQuestion($"do you want to change the name of the staff({oldName})? Y/N");
+            if (userResponse == "Y")
+            {
+                return GetNameOfStaff();
+            }
+            return oldName;
+        }
+
+        static string GetUpdatedSectionFromUser(string oldSection)
+        {
+            string userResponse = GetUserResponseForQuestion($"do you want to change the Section of the staff({oldSection})? Y/N");
+            if (userResponse == "Y")
+            {
+                return GetSectionOfStaff();
+            }
+            return oldSection;
+        }
+
+        static List<string> GetUpdatedSubjectsHandledFromUser(List<string> oldSubjectsHandled)
+        {
+            string userResponse = GetUserResponseForQuestion($"do you want to change the Subjects handled of the staff({oldSubjectsHandled})? Y/N");
+            if (userResponse == "Y")
+            {
+                return GetSubjectsHandledOfStaff();
+            }
+            return oldSubjectsHandled;
+        }
+
+        static string GetUpdatedBuildingFromUser(string oldBuilding)
+        {
+            string userResponse = GetUserResponseForQuestion($"do you want to change the Building of the staff({oldBuilding})? Y/N");
+            if (userResponse == "Y")
+            {
+                return GetBuildingOfStaff();
+            }
+            return oldBuilding;
+        }
+
+        public static void UpdateStaff()
+        {
+
+            int userInputIdForSearching = GetIdFromUser();
+            Staff staffFromSearch = staffRepository.GetStaff(userInputIdForSearching);
+            Staff newStaff = staffFromSearch;
+            if (staffFromSearch == null)
+            {
+                Console.WriteLine("not found");
+                return;
+            }
+            Console.WriteLine(staffFromSearch);
+            string newName = GetUpdatedNameFromUser(staffFromSearch.Name);
+            if (staffFromSearch.GetType() == typeof(AdministrativeStaff))
+            {
+                AdministrativeStaff adminStaffFromSearch = (AdministrativeStaff)staffFromSearch;
+                string newSection = GetUpdatedSectionFromUser(adminStaffFromSearch.Section);
+                newStaff = new AdministrativeStaff(userInputIdForSearching, newName, newSection);
+            }
+            else if (staffFromSearch.GetType() == typeof(TeachingStaff))
+            {
+                TeachingStaff teachStaffFromSearch = (TeachingStaff)staffFromSearch;
+                List<string> newSubjectsHandled = GetUpdatedSubjectsHandledFromUser(teachStaffFromSearch.SubjectsHandled);
+                newStaff = new TeachingStaff(userInputIdForSearching, newName, newSubjectsHandled);
+            }
+            else if (staffFromSearch.GetType() == typeof(SupportStaff))
+            {
+                SupportStaff supportStaffFromSearch = (SupportStaff)staffFromSearch;
+                string newBuilding = GetUpdatedBuildingFromUser(supportStaffFromSearch.Building);
+                newStaff = new SupportStaff(userInputIdForSearching, newName, newBuilding);
+            }
+            else
+            {
+                Console.WriteLine("invalid type");
+                return;
+            }
+
+
+            bool ret = staffRepository.UpdateStaff(userInputIdForSearching, newStaff);
+
+
+            if (ret)
+            {
+                Console.WriteLine("update success");
+            }
+            else
+            {
+                Console.WriteLine("update failed");
+            }
+        }
+
+
+        public static void DeleteStaff()
+        {
+            int userInputIdForSearching = GetIdFromUser();
+            bool ret = staffRepository.DeleteStaff(userInputIdForSearching);
+            if (ret)
+            {
+                Console.WriteLine("deleted successfully");
+            }
+            else
+            {
+                Console.WriteLine("delete failed");
+            }
+        }
     }
 }

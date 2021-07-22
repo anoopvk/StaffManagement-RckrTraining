@@ -10,6 +10,7 @@ namespace StaffManagement.Lib.Model
         public string Name
         {
             get;
+
         }
 
 
