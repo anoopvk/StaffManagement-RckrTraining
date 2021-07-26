@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfStaff xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Staff xsi:type="SupportStaff">
+    <Id>1</Id>
+    <Name>fgh</Name>
+    <Building>gdfgdfg</Building>
+  </Staff>
+  <Staff xsi:type="TeachingStaff">
+    <Id>1</Id>
+    <Name>asd</Name>
+    <SubjectsHandled>
+      <string>asd</string>
+      <string>dfg</string>
+    </SubjectsHandled>
+  </Staff>
+  <Staff xsi:type="SupportStaff">
+    <Id>2</Id>
+    <Name>adsfdsf</Name>
+    <Building />
+  </Staff>
+</ArrayOfStaff>

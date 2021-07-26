@@ -1,5 +1,7 @@
 ﻿using StaffManagement.Lib.Model;
 using StaffManagement.Data;
+using StaffManagement.Data.FileStorage;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,9 +14,26 @@ namespace StaffManagement
 
     static class ConsoleStaffManager
     {
-        private static int s_newId = 1;
-        private static IStaffRepository staffRepository = new InMemoryStaffRepository();
 
+        //private static IStaffRepository staffRepository = new InMemoryStaffRepository();
+        private static IStaffRepository staffRepository = new XMLStaffRepository();
+        private static int s_newId = GetInitialNextId();
+        
+        private static int GetInitialNextId()
+        {
+            List<Staff> staffList = staffRepository.GetAllStaff();
+            if (staffList.Count == 0)
+            {
+                return 1;
+            }
+            int maximumId = 1;
+            foreach (var item in staffList)
+            {
+                maximumId = Math.Max(maximumId, item.Id);
+            }
+
+            return maximumId;
+        }
         static string GetNameOfStaff()
         {
             Console.WriteLine("enter name");
