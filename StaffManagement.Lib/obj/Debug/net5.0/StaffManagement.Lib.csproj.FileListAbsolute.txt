@@ -2,6 +2,7 @@ C:\Users\Anoop\source\repos\Staffmanagement\StaffManagement.Lib\bin\Debug\net5.0
 C:\Users\Anoop\source\repos\Staffmanagement\StaffManagement.Lib\bin\Debug\net5.0\StaffManagement.Lib.dll
 C:\Users\Anoop\source\repos\Staffmanagement\StaffManagement.Lib\bin\Debug\net5.0\ref\StaffManagement.Lib.dll
 C:\Users\Anoop\source\repos\Staffmanagement\StaffManagement.Lib\bin\Debug\net5.0\StaffManagement.Lib.pdb
+C:\Users\Anoop\source\repos\Staffmanagement\StaffManagement.Lib\obj\Debug\net5.0\StaffManagement.Lib.csproj.AssemblyReference.cache
 C:\Users\Anoop\source\repos\Staffmanagement\StaffManagement.Lib\obj\Debug\net5.0\StaffManagement.Lib.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\Anoop\source\repos\Staffmanagement\StaffManagement.Lib\obj\Debug\net5.0\StaffManagement.Lib.AssemblyInfoInputs.cache
 C:\Users\Anoop\source\repos\Staffmanagement\StaffManagement.Lib\obj\Debug\net5.0\StaffManagement.Lib.AssemblyInfo.cs
@@ -9,4 +10,3 @@ C:\Users\Anoop\source\repos\Staffmanagement\StaffManagement.Lib\obj\Debug\net5.0
 C:\Users\Anoop\source\repos\Staffmanagement\StaffManagement.Lib\obj\Debug\net5.0\StaffManagement.Lib.dll
 C:\Users\Anoop\source\repos\Staffmanagement\StaffManagement.Lib\obj\Debug\net5.0\ref\StaffManagement.Lib.dll
 C:\Users\Anoop\source\repos\Staffmanagement\StaffManagement.Lib\obj\Debug\net5.0\StaffManagement.Lib.pdb
-C:\Users\Anoop\source\repos\Staffmanagement\StaffManagement.Lib\obj\Debug\net5.0\StaffManagement.Lib.csproj.AssemblyReference.cache

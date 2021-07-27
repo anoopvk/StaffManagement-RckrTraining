@@ -16,7 +16,9 @@ namespace StaffManagement
     {
 
         //private static IStaffRepository staffRepository = new InMemoryStaffRepository();
-        private static IStaffRepository staffRepository = new XMLStaffRepository();
+        //private static IStaffRepository staffRepository = new XMLStaffRepository();
+        private static IStaffRepository staffRepository = new JSONStaffRepository();
+
         private static int s_newId = GetInitialNextId();
         
         private static int GetInitialNextId()
@@ -32,7 +34,7 @@ namespace StaffManagement
                 maximumId = Math.Max(maximumId, item.Id);
             }
 
-            return maximumId;
+            return maximumId+1;
         }
         static string GetNameOfStaff()
         {
@@ -172,7 +174,12 @@ namespace StaffManagement
 
         static List<string> GetUpdatedSubjectsHandledFromUser(List<string> oldSubjectsHandled)
         {
-            string userResponse = GetUserResponseForQuestion($"do you want to change the Subjects handled of the staff({oldSubjectsHandled})? Y/N");
+            string oldSubjectsHandledString = "";
+            foreach (var item in oldSubjectsHandled)
+            {
+                oldSubjectsHandledString += (string)item;
+            }
+            string userResponse = GetUserResponseForQuestion($"do you want to change the Subjects handled of the staff({oldSubjectsHandledString})? Y/N");
             if (userResponse == "Y")
             {
                 return GetSubjectsHandledOfStaff();

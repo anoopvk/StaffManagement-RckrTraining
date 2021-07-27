@@ -6,26 +6,26 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Xml.Serialization;
+using Newtonsoft.Json;
+
 
 namespace StaffManagement.Data.FileStorage
 {
-    public class XMLStaffRepository: IStaffRepository
+    public class JSONStaffRepository : IStaffRepository
     {
         string fileName;
-        XmlSerializer xmlSerializer;
-        
-        public XMLStaffRepository()
+        JsonSerializer jsonSerializer;
+        public JSONStaffRepository()
         {
-            fileName = "MyFileForSavingXmlData.xml";
-            xmlSerializer = new XmlSerializer(typeof(List<Staff>));
+            fileName = "MyFileForSavingJsonData.json";
+            jsonSerializer = new JsonSerializer();
+            jsonSerializer.TypeNameHandling = TypeNameHandling.Auto;
+            jsonSerializer.Formatting = Formatting.Indented;
         }
 
-
-
-        private List<Staff> _GetDataFromXML()
+        private List<Staff> _getDataFromJson()
         {
-            if (File.Exists(fileName)==false)
+            if (File.Exists(fileName) == false)
             {
                 return new List<Staff>();
             }
@@ -34,40 +34,43 @@ namespace StaffManagement.Data.FileStorage
             {
                 return new List<Staff>();
             }
-            
-            var myObjectFromXml = (List<Staff>)xmlSerializer.Deserialize(streamReader);
-            return myObjectFromXml;
+
+            using JsonReader jsonReader = new JsonTextReader(streamReader);
+            List<Staff> myObjectFromJson = (List<Staff>)jsonSerializer.Deserialize(jsonReader,typeof(List<Staff>));
+            return myObjectFromJson;
         }
-        private void _SetDataIntoXML(List<Staff> staffList)
+        private void _setDataToJson(List<Staff> staffList)
         {
+            
+
             using StreamWriter myWriter = new StreamWriter(fileName);
-            xmlSerializer.Serialize(myWriter, staffList);
+            using JsonWriter jsonWriter = new JsonTextWriter(myWriter);
+            jsonSerializer.Serialize(myWriter ,staffList);
+            
         }
-        
-        
         public void AddStaff(Staff staff)
         {
             if (staff != null)
             {
-                List<Staff> staffList = _GetDataFromXML();
+                List<Staff> staffList = _getDataFromJson();
                 staffList.Add(staff);
-                _SetDataIntoXML(staffList);
+                _setDataToJson(staffList);
             }
 
 
         }
         public Staff GetStaff(int staffId)
         {
-            List<Staff> staffList = _GetDataFromXML();
+            List<Staff> staffList = _getDataFromJson();
             return staffList.Find(x => x.Id == staffId);
         }
         public List<Staff> GetAllStaff()
         {
-            return _GetDataFromXML();
+            return _getDataFromJson();
         }
         public bool UpdateStaff(int id, Staff updatedStaff)
         {
-            List<Staff> staffList = _GetDataFromXML();
+            List<Staff> staffList = _getDataFromJson();
             if (staffList.Count == 0)
             {
                 return false;
@@ -78,12 +81,12 @@ namespace StaffManagement.Data.FileStorage
                 return false;
             }
             staffList[staffIndexToUpdate] = updatedStaff;
-            _SetDataIntoXML(staffList);
+            _setDataToJson(staffList);
             return true;
         }
         public bool DeleteStaff(int idToDelete)
         {
-            List<Staff> staffList = _GetDataFromXML();
+            List<Staff> staffList = _getDataFromJson();
             if (staffList.Count == 0)
             {
                 return false;
@@ -94,9 +97,11 @@ namespace StaffManagement.Data.FileStorage
                 return false;
             }
             staffList.RemoveAt(staffIndexToDelete);
-            _SetDataIntoXML(staffList);
+            _setDataToJson(staffList);
             return true;
 
         }
     }
+
 }
+

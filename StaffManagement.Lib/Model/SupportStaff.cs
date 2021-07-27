@@ -19,7 +19,7 @@ namespace StaffManagement.Lib.Model
 
         public override string ToString()
         {
-            return $"(Support staffe staff---) {base.ToString()} | BUILDING : {Building}";
+            return $"(Support staff----------) {base.ToString()} | BUILDING : {Building}";
         }
 
     }
