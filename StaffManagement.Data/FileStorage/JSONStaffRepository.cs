@@ -15,12 +15,14 @@ namespace StaffManagement.Data.FileStorage
     {
         string fileName;
         JsonSerializer jsonSerializer;
-        public JSONStaffRepository()
+        public JSONStaffRepository(string fileNameFromConfig= "MyFileForSavingJsonData.json")
         {
-            fileName = "MyFileForSavingJsonData.json";
-            jsonSerializer = new JsonSerializer();
-            jsonSerializer.TypeNameHandling = TypeNameHandling.Auto;
-            jsonSerializer.Formatting = Formatting.Indented;
+            fileName = fileNameFromConfig;
+            jsonSerializer = new JsonSerializer
+            {
+                TypeNameHandling = TypeNameHandling.Auto,
+                Formatting = Formatting.Indented
+            };
         }
 
         private List<Staff> _getDataFromJson()

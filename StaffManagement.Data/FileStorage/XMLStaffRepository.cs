@@ -15,9 +15,9 @@ namespace StaffManagement.Data.FileStorage
         string fileName;
         XmlSerializer xmlSerializer;
         
-        public XMLStaffRepository()
+        public XMLStaffRepository(string fileNameFromConfig= "MyFileForSavingXmlData.xml")
         {
-            fileName = "MyFileForSavingXmlData.xml";
+            fileName = fileNameFromConfig;
             xmlSerializer = new XmlSerializer(typeof(List<Staff>));
         }
 
