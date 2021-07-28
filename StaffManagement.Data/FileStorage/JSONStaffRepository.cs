@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-
+using System.Configuration;
 
 namespace StaffManagement.Data.FileStorage
 {
@@ -15,9 +15,14 @@ namespace StaffManagement.Data.FileStorage
     {
         string fileName;
         JsonSerializer jsonSerializer;
-        public JSONStaffRepository(string fileNameFromConfig= "MyFileForSavingJsonData.json")
+        public JSONStaffRepository()
         {
-            fileName = fileNameFromConfig;
+            string jsonFileNameFromConfig = ConfigurationManager.AppSettings["JsonFileName"];
+            fileName = "DefaultFileName.json";
+            if (!String.IsNullOrWhiteSpace(jsonFileNameFromConfig))
+            {
+                fileName = jsonFileNameFromConfig;
+            }
             jsonSerializer = new JsonSerializer
             {
                 TypeNameHandling = TypeNameHandling.Auto,

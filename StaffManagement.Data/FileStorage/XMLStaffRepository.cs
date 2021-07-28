@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
+using System.Configuration;
 
 namespace StaffManagement.Data.FileStorage
 {
@@ -15,11 +16,18 @@ namespace StaffManagement.Data.FileStorage
         string fileName;
         XmlSerializer xmlSerializer;
         
-        public XMLStaffRepository(string fileNameFromConfig= "MyFileForSavingXmlData.xml")
+        public XMLStaffRepository()
         {
-            fileName = fileNameFromConfig;
+            string xmlFileNameFromConfig = ConfigurationManager.AppSettings["XmlFileName"];
+            fileName = "DefaultFileName.xml";
+            if (!String.IsNullOrWhiteSpace(xmlFileNameFromConfig))
+            {
+                fileName=xmlFileNameFromConfig;
+            }
+            
             xmlSerializer = new XmlSerializer(typeof(List<Staff>));
         }
+
 
 
 
