@@ -8,19 +8,44 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using StaffManagement.Interface;
+using System.Configuration;
 
 namespace StaffManagement
 {
 
     static class ConsoleStaffManager
     {
-
+        
+        
         //private static IStaffRepository staffRepository = new InMemoryStaffRepository();
         //private static IStaffRepository staffRepository = new XMLStaffRepository();
-        private static IStaffRepository staffRepository = new JSONStaffRepository();
-
+        //private static IStaffRepository staffRepository = new JSONStaffRepository();
+        private static IStaffRepository staffRepository = GetStaffRepositoryUsingConfig();
         private static int s_newId = GetInitialNextId();
+
+
         
+        private static IStaffRepository GetStaffRepositoryUsingConfig()
+        {
+            var appSettings = ConfigurationManager.AppSettings;
+            Console.WriteLine("config details --- "+appSettings["SavingType"]+"  "+ appSettings["FileName"]);
+            
+            if (appSettings["SavingType"].ToLower() == "xml")
+            {
+                return new XMLStaffRepository(appSettings["FileName"]);
+            }
+
+            else if (appSettings["SavingType"].ToLower() == "json")
+            {
+                return new JSONStaffRepository(appSettings["FileName"]);
+            }
+
+            else
+            {
+                //by default
+                return new InMemoryStaffRepository();
+            }
+        }
         private static int GetInitialNextId()
         {
             List<Staff> staffList = staffRepository.GetAllStaff();
