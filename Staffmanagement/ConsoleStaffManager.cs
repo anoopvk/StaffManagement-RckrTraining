@@ -9,19 +9,21 @@ using System.Text;
 using System.Threading.Tasks;
 using StaffManagement.Interface;
 using System.Configuration;
+using System.Reflection;
 
 namespace StaffManagement
 {
 
     static class ConsoleStaffManager
     {
-        
-        
-        //private static IStaffRepository staffRepository = new InMemoryStaffRepository();
-        private static IStaffRepository staffRepository = new XMLStaffRepository();
-        //private static IStaffRepository staffRepository = new JSONStaffRepository();
+        private static IStaffRepository staffRepository = Init();
         private static int s_newId = GetInitialNextId();
 
+        private static IStaffRepository Init()
+        {
+            var implClass = ConfigurationManager.AppSettings["ImplClass"];
+            return (IStaffRepository)Activator.CreateInstance(Type.GetType(implClass));
+        }
 
         
        
@@ -40,6 +42,7 @@ namespace StaffManagement
 
             return maximumId+1;
         }
+
         static string GetNameOfStaff()
         {
             Console.WriteLine("enter name");
