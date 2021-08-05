@@ -72,5 +72,7 @@
     <Build Include="dbo\Stored Procedures\AddTeachingStaff.sql" />
     <Build Include="dbo\Stored Procedures\AddSupportStaff.sql" />
     <Build Include="dbo\Stored Procedures\AddSubjectForTeacher.sql" />
+    <Build Include="dbo\Stored Procedures\Proc_GetStaffWithId.sql" />
+    <Build Include="dbo\Stored Procedures\Proc_GetAllStaff.sql" />
   </ItemGroup>
 </Project>

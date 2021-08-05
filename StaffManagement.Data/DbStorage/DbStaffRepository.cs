@@ -30,7 +30,7 @@ namespace StaffManagement.Data.DbStorage
             using SqlConnection sqlConnection = new SqlConnection(connectionString);
             sqlConnection.Open();
             SqlCommand sqlCommand = new SqlCommand(query, sqlConnection);
-            SqlDataReader response = sqlCommand.ExecuteReader();
+            using SqlDataReader response = sqlCommand.ExecuteReader();
             int id = -1;
             response.Read();
             if (response.GetValue(0)!=null)
@@ -76,7 +76,6 @@ namespace StaffManagement.Data.DbStorage
 
             if (s.GetType() == typeof(AdministrativeStaff))
             {
-                Console.WriteLine(typeof(AdministrativeStaff));
                 _addAdmminStaffToDB(s);
             }
             else if(s.GetType() == typeof(SupportStaff))
@@ -104,15 +103,104 @@ namespace StaffManagement.Data.DbStorage
 
         }
 
+
+
+        
+
+
+        private Staff _createAdminStaffObject(SqlDataReader dataReader)
+        {
+            return new AdministrativeStaff((int)dataReader["Id"], (string)dataReader["Name"], (string)dataReader["Section"]);
+        }
+        private Staff _createSupportStaffObject(SqlDataReader dataReader)
+        {
+            return new SupportStaff((int)dataReader["Id"], (string)dataReader["Name"], (string)dataReader["Building"]);
+        }
+        private Staff _createTeachingStaffObject(SqlDataReader dataReader)
+        {
+            int currentId = (int)dataReader["Id"];
+            string currentName = (string)dataReader["Name"];
+            List<string>  subjectsHandled = new List<string>();
+            bool flag = true;
+            while ((flag) && ((int)dataReader["Id"] == currentId))
+            {
+                subjectsHandled.Add((string)dataReader["SubjectName"]);
+                flag=dataReader.Read();
+
+            }
+            return new TeachingStaff(currentId, currentName, subjectsHandled);
+        }
+
+
         public Staff GetStaff(int staffId)
         {
-
-            return new AdministrativeStaff(5,"asd","asd");
+            using SqlConnection sqlConnection = new SqlConnection(connectionString);
+            sqlConnection.Open();
+            SqlCommand sqlCommand = new SqlCommand($"Proc_GetStaffWithId {staffId}", sqlConnection);
+            SqlDataReader dataReader = sqlCommand.ExecuteReader();
+            while (dataReader.Read())
+            {
+                switch ((int)dataReader["StaffTypeId"])
+                {
+                    case 1:
+                        return _createAdminStaffObject(dataReader);
+                    case 2:
+                        return _createSupportStaffObject(dataReader);
+                    case 3:
+                        return _createTeachingStaffObject(dataReader);
+                    default:
+                        return null;
+                }
+            }
+            return null;
         }
 
         public List<Staff> GetAllStaff()
         {
-            return new List<Staff>();
+            using SqlConnection sqlConnection = new SqlConnection(connectionString);
+            sqlConnection.Open();
+            SqlCommand sqlCommand = new SqlCommand($"Proc_GetAllStaff", sqlConnection);
+            SqlDataReader dataReader = sqlCommand.ExecuteReader();
+            List<Staff> staffList = new List<Staff>();
+            bool flag = dataReader.Read();
+            
+
+
+
+            while (flag)
+            {
+                switch ((int)dataReader["StaffTypeId"])
+                {
+                    case 1:
+                        staffList.Add(_createAdminStaffObject(dataReader));
+                        flag = dataReader.Read();
+                        break;
+
+                    case 2:
+                        staffList.Add(_createSupportStaffObject(dataReader));
+                        flag = dataReader.Read();
+                        break;
+
+                    case 3:
+                        int currentId = (int)dataReader["Id"];
+                        string currentName = (string)dataReader["Name"];
+                        List<string> subjectsHandled = new List<string>();
+                        while ((flag) && ((int)dataReader["Id"] == currentId))
+                        {
+                            subjectsHandled.Add((string)dataReader["SubjectName"]);
+                            flag = dataReader.Read();
+
+                        }
+                        staffList.Add(new TeachingStaff(currentId, currentName, subjectsHandled));
+                        break;
+
+                    default:
+                        return staffList;
+                }
+            }
+
+            return staffList;
+
         }
 
     }

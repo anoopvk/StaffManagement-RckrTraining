@@ -131,7 +131,7 @@ namespace StaffManagement
         public static void ViewAllStaff()
         {
             List<Staff> listOfAllStaff = staffRepository.GetAllStaff();
-            if (listOfAllStaff == null)
+            if ((listOfAllStaff == null) || (listOfAllStaff.Count==0))
             {
                 Console.WriteLine("empty");
             }

@@ -19,8 +19,21 @@ namespace StaffManagement.Lib.Model
 
         }
 
+        public enum TypesOfStaff
+        {
+            AdministrativeStaff = 1,
+            SupportStaff=2,
+            TeachingStaff = 3
+        }
+        public TypesOfStaff StaffType { get; set; }
+
+
         public Staff() { }
         //private Staff() { }
+
+        
+
+
         public Staff(int sId, string sName)
         {
             Id = sId;
@@ -34,4 +47,6 @@ namespace StaffManagement.Lib.Model
         }
 
     }
+
+
 }
