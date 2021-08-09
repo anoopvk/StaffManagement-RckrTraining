@@ -59,6 +59,7 @@
     <Folder Include="dbo\" />
     <Folder Include="dbo\Tables\" />
     <Folder Include="dbo\Stored Procedures\" />
+    <Folder Include="dbo\User Defined Types\" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Tables\TeachingStaffToSubjectMapping.sql" />
@@ -74,5 +75,10 @@
     <Build Include="dbo\Stored Procedures\AddSubjectForTeacher.sql" />
     <Build Include="dbo\Stored Procedures\Proc_GetStaffWithId.sql" />
     <Build Include="dbo\Stored Procedures\Proc_GetAllStaff.sql" />
+    <Build Include="dbo\Stored Procedures\Proc_UpdateTeachingStaff.sql" />
+    <Build Include="dbo\Stored Procedures\Proc_UpdateSupportStaff.sql" />
+    <Build Include="dbo\Stored Procedures\Proc_UpdateAdmminStaff.sql" />
+    <Build Include="dbo\Stored Procedures\Proc_DeleteStaff.sql" />
+    <Build Include="dbo\User Defined Types\SubjectTypeTable.sql" />
   </ItemGroup>
 </Project>

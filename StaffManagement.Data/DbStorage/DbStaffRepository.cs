@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
+using System.Data;
 
 namespace StaffManagement.Data.DbStorage
 {
@@ -89,17 +90,96 @@ namespace StaffManagement.Data.DbStorage
 
         }
 
-
-
-        public bool UpdateStaff(int id, Staff s)
+        private bool _updateAdmminStaffToDB(Staff updatedStaff)
         {
-
+            AdministrativeStaff administrativeStaff = (AdministrativeStaff)updatedStaff;
+            using SqlConnection sqlConnection = new SqlConnection(connectionString);
+            sqlConnection.Open();
+            SqlCommand sqlCommand = new SqlCommand($"Proc_UpdateAdmminStaff {administrativeStaff.Id} , {administrativeStaff.Name}, {administrativeStaff.Section}", sqlConnection);
+            if (sqlCommand.ExecuteNonQuery() >= 0)
+            {
+                return true;
+            }
             return false;
+        }
+
+        private bool _updateSupportStaffToDb(Staff updatedStaff)
+        {
+            SupportStaff supportStaff = (SupportStaff)updatedStaff;
+            using SqlConnection sqlConnection = new SqlConnection(connectionString);
+            sqlConnection.Open();
+            SqlCommand sqlCommand = new SqlCommand($"Proc_UpdateSupportStaff {supportStaff.Id} , {supportStaff.Name}, {supportStaff.Building}", sqlConnection);
+            if (sqlCommand.ExecuteNonQuery() >= 0)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        private bool _updateTeachingStaffToDb(Staff updatedStaff)
+        {
+            TeachingStaff teachingStaff = (TeachingStaff)updatedStaff;
+
+
+            DataTable subjectTable = new DataTable();
+            subjectTable.Columns.Add("Subjects", typeof(string));
+            foreach (var subject in teachingStaff.SubjectsHandled)
+            {
+                subjectTable.Rows.Add(subject);
+            }
+
+            using SqlConnection sqlConnection = new SqlConnection(connectionString);
+            sqlConnection.Open();
+            SqlCommand sqlCommand = new SqlCommand($"Proc_UpdateTeachingStaff ", sqlConnection);
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+
+            SqlParameter parameterId = new SqlParameter();
+            parameterId.ParameterName = "@id";
+            parameterId.Value= teachingStaff.Id;
+            sqlCommand.Parameters.Add(parameterId);
+
+            SqlParameter parameterName = new SqlParameter();
+            parameterName.ParameterName = "@name";
+            parameterName.Value = teachingStaff.Name;
+            sqlCommand.Parameters.Add(parameterName);
+
+            SqlParameter parameterSubjects = new SqlParameter();
+            parameterSubjects.ParameterName = "@subjects";
+            parameterSubjects.Value = subjectTable;
+            sqlCommand.Parameters.Add(parameterSubjects);
+
+
+
+            var response = sqlCommand.ExecuteNonQuery();
+            Console.WriteLine(response);
+            return true;
+        }
+
+        public bool UpdateStaff(int id, Staff updatedStaff)
+        {
+            if (updatedStaff.GetType() == typeof(AdministrativeStaff))
+            {
+                _updateAdmminStaffToDB(updatedStaff);
+            }
+            else if (updatedStaff.GetType() == typeof(SupportStaff))
+            {
+                _updateSupportStaffToDb(updatedStaff);
+            }
+            else if (updatedStaff.GetType() == typeof(TeachingStaff))
+            {
+                _updateTeachingStaffToDb(updatedStaff);
+            }
+
+            return true;
         }
 
         public bool DeleteStaff(int id)
         {
-            return false;
+            using SqlConnection sqlConnection = new SqlConnection(connectionString);
+            sqlConnection.Open();
+            SqlCommand sqlCommand = new SqlCommand($"Proc_DeleteStaff {id} ", sqlConnection);
+            sqlCommand.ExecuteNonQuery();
+            return true;
 
         }
 
