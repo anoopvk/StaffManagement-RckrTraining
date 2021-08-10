@@ -57,17 +57,12 @@ namespace StaffManagement
         }
 
 
-        static List<string> GetSubjectsHandledOfStaff()
+        static string GetSubjectHandledOfStaff()
         {
-            List<string> subjectsHandled = new List<string>();
-            Console.WriteLine("enter number of subjects handled");
-            int numberOfSubjectsHandled = Convert.ToInt32(Console.ReadLine());
-            Console.WriteLine("enter subject names : ");
-            for (int i = 0; i < numberOfSubjectsHandled; i++)
-            {
-                subjectsHandled.Add(Console.ReadLine());
-            }
-            return subjectsHandled;
+            Console.WriteLine("enter subject name : ");
+            string subjectHandled = Console.ReadLine();
+            
+            return subjectHandled;
         }
 
 
@@ -95,7 +90,7 @@ namespace StaffManagement
             }
             else if (staffTypeKey == 2) // teaching staff
             {
-                List<string> subjectsHandled = GetSubjectsHandledOfStaff();
+                string subjectsHandled = GetSubjectHandledOfStaff();
                 return (new TeachingStaff(newid, nameOfStaff, subjectsHandled));
             }
             else if (staffTypeKey == 3) // support staff
@@ -127,6 +122,31 @@ namespace StaffManagement
             s_newId++;
         }
 
+        public static void AddNewStaffInBulk()
+        {
+            List<Staff> staffList = new List<Staff>();
+            bool flag = true;
+            Staff newStaff;
+            while (flag)
+            {
+                newStaff = CreateStaffThroughUserInput(s_newId);
+                if (newStaff != null)
+                {
+                    staffList.Add(newStaff);
+                }
+                Console.WriteLine("\n do you want to add another staff? (Y/N)");
+                string response = Console.ReadLine();
+                if (response!="Y" && response != "y")
+                {
+                    flag = false;
+                }
+
+                s_newId++;
+            }
+            
+            staffRepository.AddStaffInBulk(staffList);
+            Console.WriteLine("\n Added successfully \n");
+        }
 
         public static void ViewAllStaff()
         {
@@ -179,17 +199,12 @@ namespace StaffManagement
             return oldSection;
         }
 
-        static List<string> GetUpdatedSubjectsHandledFromUser(List<string> oldSubjectsHandled)
+        static string GetUpdatedSubjectHandledFromUser(string oldSubjectsHandled)
         {
-            string oldSubjectsHandledString = "";
-            foreach (var item in oldSubjectsHandled)
+            string userResponse = GetUserResponseForQuestion($"do you want to change the Subjects handled of the staff({oldSubjectsHandled})? Y/N");
+            if (userResponse == "Y" || userResponse == "y")
             {
-                oldSubjectsHandledString += (string)item;
-            }
-            string userResponse = GetUserResponseForQuestion($"do you want to change the Subjects handled of the staff({oldSubjectsHandledString})? Y/N");
-            if (userResponse == "Y")
-            {
-                return GetSubjectsHandledOfStaff();
+                return GetSubjectHandledOfStaff();
             }
             return oldSubjectsHandled;
         }
@@ -204,16 +219,13 @@ namespace StaffManagement
             return oldBuilding;
         }
 
-        public static void UpdateStaff()
+        static Staff GetUpdatedStaff(int userInputIdForSearching, Staff staffFromSearch)
         {
-
-            int userInputIdForSearching = GetIdFromUser();
-            Staff staffFromSearch = staffRepository.GetStaff(userInputIdForSearching);
             Staff newStaff = staffFromSearch;
             if (staffFromSearch == null)
             {
                 Console.WriteLine("not found");
-                return;
+                return null;
             }
             Console.WriteLine(staffFromSearch);
             string newName = GetUpdatedNameFromUser(staffFromSearch.Name);
@@ -226,7 +238,7 @@ namespace StaffManagement
             else if (staffFromSearch.GetType() == typeof(TeachingStaff))
             {
                 TeachingStaff teachStaffFromSearch = (TeachingStaff)staffFromSearch;
-                List<string> newSubjectsHandled = GetUpdatedSubjectsHandledFromUser(teachStaffFromSearch.SubjectsHandled);
+                string newSubjectsHandled = GetUpdatedSubjectHandledFromUser(teachStaffFromSearch.SubjectHandled);
                 newStaff = new TeachingStaff(userInputIdForSearching, newName, newSubjectsHandled);
             }
             else if (staffFromSearch.GetType() == typeof(SupportStaff))
@@ -238,13 +250,23 @@ namespace StaffManagement
             else
             {
                 Console.WriteLine("invalid type");
+                return null;
+            }
+            return newStaff;
+        }
+
+        public static void UpdateStaff()
+        {
+
+            int userInputIdForSearching = GetIdFromUser();
+            Staff staffFromSearch = staffRepository.GetStaff(userInputIdForSearching);
+
+            Staff newStaff = GetUpdatedStaff(userInputIdForSearching, staffFromSearch);
+            if (newStaff == null)
+            {
                 return;
             }
-
-
             bool ret = staffRepository.UpdateStaff(userInputIdForSearching, newStaff);
-
-
             if (ret)
             {
                 Console.WriteLine("update success");
@@ -255,6 +277,53 @@ namespace StaffManagement
             }
         }
 
+        public static void UpdateStaffInBulk()
+        {
+            List<Staff> allStaffList = staffRepository.GetAllStaff();
+            List<int> updatedStaffIndexList =new List<int>();
+            if ((allStaffList == null) || (allStaffList.Count == 0))
+            {
+                Console.WriteLine("staff list is empty");
+                return;
+            }
+
+            int id;
+            bool flag = true;
+            List<Staff> staffListForUpdate = new List<Staff>();
+            while (flag)
+            {
+
+                id = GetIdFromUser();
+                int indexOfStaffInList = allStaffList.FindIndex(x => x.Id == id);
+                if (indexOfStaffInList != -1)
+                {
+                    allStaffList[indexOfStaffInList] = GetUpdatedStaff(id, allStaffList[indexOfStaffInList]);
+                    if (!updatedStaffIndexList.Contains(indexOfStaffInList))
+                    {
+                        updatedStaffIndexList.Add(indexOfStaffInList);
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("not found");
+                }
+                Console.WriteLine("\n do you want to update another staff? (Y/N)");
+                string response = Console.ReadLine();
+                if (response != "Y" && response != "y")
+                {
+                    flag = false;
+                }
+
+
+            }
+            foreach (var indexes in updatedStaffIndexList)
+            {
+                staffListForUpdate.Add(allStaffList[indexes]);
+            }
+            staffRepository.UpdateStaffInBulk(staffListForUpdate);
+            Console.WriteLine("Bulk Inserted successfully");
+
+        }
 
         public static void DeleteStaff()
         {

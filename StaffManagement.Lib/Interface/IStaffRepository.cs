@@ -7,8 +7,11 @@ namespace StaffManagement.Interface
     {
         void AddStaff(Staff s);
 
+        void AddStaffInBulk(List<Staff> staffs);
 
         bool UpdateStaff(int id,Staff s);
+
+        bool UpdateStaffInBulk(List<Staff> staffs);
 
         bool DeleteStaff(int id);
 

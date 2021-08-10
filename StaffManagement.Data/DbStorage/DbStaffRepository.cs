@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
 using System.Data;
+using System.Configuration;
 
 namespace StaffManagement.Data.DbStorage
 {
@@ -15,61 +16,52 @@ namespace StaffManagement.Data.DbStorage
         public string connectionString;
         public DbStaffRepository()
         {
-            connectionString = "Server=LAPTOP-NOOBIE\\SQLEXPRESS;Integrated security=SSPI;database=StaffManagementDb";
+            //connectionString = "Server=LAPTOP-NOOBIE\\SQLEXPRESS;Integrated security=SSPI;database=StaffManagementDb";
+            //connectionString = "Data Source=LAPTOP-NOOBIE\\SQLEXPRESS;Integrated security=SSPI;Initial Catalog=StaffManagementDb";
+
+            connectionString = (string)ConfigurationManager.AppSettings.Get("DbConnectionString");
         }
-        private int _executeSqlQuery(string query)
-        {
-            using SqlConnection sqlConnection = new SqlConnection(connectionString);
-            sqlConnection.Open();
-            SqlCommand sqlCommand = new SqlCommand(query, sqlConnection);
-            int response = sqlCommand.ExecuteNonQuery();
-            sqlConnection.Close();
-            return response;
-        }
-        private int _executeSqlQueryAndReturnId(string query)
-        {
-            using SqlConnection sqlConnection = new SqlConnection(connectionString);
-            sqlConnection.Open();
-            SqlCommand sqlCommand = new SqlCommand(query, sqlConnection);
-            using SqlDataReader response = sqlCommand.ExecuteReader();
-            int id = -1;
-            response.Read();
-            if (response.GetValue(0)!=null)
-            {
-                id = (int)response.GetValue(0);
-            }
-            sqlConnection.Close();
-            return id;
-        }
+        
+
+
         private void _addAdmminStaffToDB(Staff s)
         {
             AdministrativeStaff administrativeStaff = (AdministrativeStaff)s;
-            _executeSqlQuery($"EXEC AddAdminStaff {administrativeStaff.Name}, {administrativeStaff.Section} ");
+
+            using SqlConnection sqlConnection = new SqlConnection(connectionString);
+            sqlConnection.Open();
+            SqlCommand sqlCommand = new SqlCommand($"AddAdminStaff ", sqlConnection);
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+            sqlCommand.Parameters.AddWithValue("@name", administrativeStaff.Name);
+            sqlCommand.Parameters.AddWithValue("@section", administrativeStaff.Section);
+            sqlCommand.ExecuteNonQuery();
         }
         private void _addSupportStaffToDb(Staff s)
         {
             SupportStaff supportStaff = (SupportStaff)s;
-            _executeSqlQuery($"EXEC AddSupportStaff {supportStaff.Name}, {supportStaff.Building} ");
+            
+            using SqlConnection sqlConnection = new SqlConnection(connectionString);
+            sqlConnection.Open();
+            SqlCommand sqlCommand = new SqlCommand($"AddSupportStaff ", sqlConnection);
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+            sqlCommand.Parameters.AddWithValue("@name", supportStaff.Name);
+            sqlCommand.Parameters.AddWithValue("@building", supportStaff.Building);
+            sqlCommand.ExecuteNonQuery();
 
         }
         private void _addTeachingStaffToDb(Staff s)
         {
             TeachingStaff teachingStaff = (TeachingStaff)s;
-            int teachingStaffId =_executeSqlQueryAndReturnId($"EXEC AddTeachingStaff { teachingStaff.Name}");
 
-            if (teachingStaffId == -1)
-            {
-                return;
-            }
-
-            foreach (var item in teachingStaff.SubjectsHandled)
-            {
-                _executeSqlQuery($"EXEC AddSubjectForTeacher {teachingStaffId} , {item} ");
-            }
+            using SqlConnection sqlConnection = new SqlConnection(connectionString);
+            sqlConnection.Open();
+            SqlCommand sqlCommand = new SqlCommand($"AddTeachingStaff ", sqlConnection);
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+            sqlCommand.Parameters.AddWithValue("@name", teachingStaff.Name);
+            sqlCommand.Parameters.AddWithValue("@subjectHandled", teachingStaff.SubjectHandled);
+            sqlCommand.ExecuteNonQuery();
 
         }
-
-
 
         public void AddStaff(Staff s)
         {
@@ -90,17 +82,82 @@ namespace StaffManagement.Data.DbStorage
 
         }
 
+
+
+        private DataTable _convertStaffListToDataTable(List<Staff> staffList)
+        {
+            DataTable staffTable = new DataTable();
+            staffTable.Columns.Add("Id");
+            staffTable.Columns.Add("Name");
+            staffTable.Columns.Add("StaffTypeId");
+            staffTable.Columns.Add("Section");
+            staffTable.Columns.Add("Building");
+            staffTable.Columns.Add("SubjectName");
+            DataRow row;
+            int newId = 0;
+            foreach (var staff in staffList)
+            {
+                row = staffTable.NewRow();
+                newId++;
+                row["Id"]= staff.Id;
+                row["Name"] = staff.Name;
+
+                row["StaffTypeId"] = DBNull.Value;
+                row["Section"] = DBNull.Value;
+                row["Building"] = DBNull.Value;
+                row["SubjectName"] = DBNull.Value;
+
+                if (staff.GetType() == typeof(AdministrativeStaff))
+                {
+                    row["StaffTypeId"] = 1;
+                    row["Section"] = ((AdministrativeStaff)staff).Section;
+                }
+                else if (staff.GetType() == typeof(SupportStaff))
+                {
+                    row["StaffTypeId"] = 2;
+                    row["Building"] = ((SupportStaff)staff).Building;
+                }
+                else if (staff.GetType() == typeof(TeachingStaff))
+                {
+                    row["StaffTypeId"] = 3;
+                    row["SubjectName"] = ((TeachingStaff)staff).SubjectHandled;
+
+                }
+                staffTable.Rows.Add(row);
+            }
+
+
+            return staffTable;
+
+        }
+
+        public void AddStaffInBulk(List<Staff> staffList)
+        {
+            DataTable data =  _convertStaffListToDataTable(staffList);
+            using SqlConnection sqlConnection = new SqlConnection(connectionString);
+            sqlConnection.Open();
+            SqlCommand sqlCommand = new SqlCommand($"AddStaffInBulk ", sqlConnection);
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+            sqlCommand.Parameters.AddWithValue("@StaffDetailsInBulk", data);
+            sqlCommand.ExecuteNonQuery();
+        }
+
+
+
+
+
         private bool _updateAdmminStaffToDB(Staff updatedStaff)
         {
             AdministrativeStaff administrativeStaff = (AdministrativeStaff)updatedStaff;
             using SqlConnection sqlConnection = new SqlConnection(connectionString);
             sqlConnection.Open();
-            SqlCommand sqlCommand = new SqlCommand($"Proc_UpdateAdmminStaff {administrativeStaff.Id} , {administrativeStaff.Name}, {administrativeStaff.Section}", sqlConnection);
-            if (sqlCommand.ExecuteNonQuery() >= 0)
-            {
-                return true;
-            }
-            return false;
+            SqlCommand sqlCommand = new SqlCommand($"Proc_UpdateAdminStaff ", sqlConnection);
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+            sqlCommand.Parameters.AddWithValue("@id", administrativeStaff.Id);
+            sqlCommand.Parameters.AddWithValue("@name", administrativeStaff.Name);
+            sqlCommand.Parameters.AddWithValue("@section", administrativeStaff.Section);
+            sqlCommand.ExecuteNonQuery();
+            return true;
         }
 
         private bool _updateSupportStaffToDb(Staff updatedStaff)
@@ -108,50 +165,26 @@ namespace StaffManagement.Data.DbStorage
             SupportStaff supportStaff = (SupportStaff)updatedStaff;
             using SqlConnection sqlConnection = new SqlConnection(connectionString);
             sqlConnection.Open();
-            SqlCommand sqlCommand = new SqlCommand($"Proc_UpdateSupportStaff {supportStaff.Id} , {supportStaff.Name}, {supportStaff.Building}", sqlConnection);
-            if (sqlCommand.ExecuteNonQuery() >= 0)
-            {
-                return true;
-            }
-            return false;
+            SqlCommand sqlCommand = new SqlCommand($"Proc_UpdateSupportStaff ", sqlConnection);
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+            sqlCommand.Parameters.AddWithValue("@id", supportStaff.Id);
+            sqlCommand.Parameters.AddWithValue("@name", supportStaff.Name);
+            sqlCommand.Parameters.AddWithValue("@building", supportStaff.Building);
+            sqlCommand.ExecuteNonQuery();
+            return true;
         }
 
         private bool _updateTeachingStaffToDb(Staff updatedStaff)
         {
             TeachingStaff teachingStaff = (TeachingStaff)updatedStaff;
-
-
-            DataTable subjectTable = new DataTable();
-            subjectTable.Columns.Add("Subjects", typeof(string));
-            foreach (var subject in teachingStaff.SubjectsHandled)
-            {
-                subjectTable.Rows.Add(subject);
-            }
-
             using SqlConnection sqlConnection = new SqlConnection(connectionString);
             sqlConnection.Open();
             SqlCommand sqlCommand = new SqlCommand($"Proc_UpdateTeachingStaff ", sqlConnection);
             sqlCommand.CommandType = CommandType.StoredProcedure;
-
-            SqlParameter parameterId = new SqlParameter();
-            parameterId.ParameterName = "@id";
-            parameterId.Value= teachingStaff.Id;
-            sqlCommand.Parameters.Add(parameterId);
-
-            SqlParameter parameterName = new SqlParameter();
-            parameterName.ParameterName = "@name";
-            parameterName.Value = teachingStaff.Name;
-            sqlCommand.Parameters.Add(parameterName);
-
-            SqlParameter parameterSubjects = new SqlParameter();
-            parameterSubjects.ParameterName = "@subjects";
-            parameterSubjects.Value = subjectTable;
-            sqlCommand.Parameters.Add(parameterSubjects);
-
-
-
-            var response = sqlCommand.ExecuteNonQuery();
-            Console.WriteLine(response);
+            sqlCommand.Parameters.AddWithValue("@id", teachingStaff.Id);
+            sqlCommand.Parameters.AddWithValue("@name", teachingStaff.Name);
+            sqlCommand.Parameters.AddWithValue("@subjectHandled", teachingStaff.SubjectHandled);
+            sqlCommand.ExecuteNonQuery();
             return true;
         }
 
@@ -173,11 +206,36 @@ namespace StaffManagement.Data.DbStorage
             return true;
         }
 
+
+
+        public bool UpdateStaffInBulk(List<Staff> staffList)
+        {
+            DataTable data = _convertStaffListToDataTable(staffList);
+
+            
+
+
+            using SqlConnection sqlConnection = new SqlConnection(connectionString);
+            sqlConnection.Open();
+            SqlCommand sqlCommand = new SqlCommand($"UpdateStaffInBulk ", sqlConnection);
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+            sqlCommand.Parameters.AddWithValue("@StaffDetailsInBulk", data);
+            sqlCommand.ExecuteNonQuery();
+
+
+            return true;
+        }
+
+
         public bool DeleteStaff(int id)
         {
             using SqlConnection sqlConnection = new SqlConnection(connectionString);
             sqlConnection.Open();
-            SqlCommand sqlCommand = new SqlCommand($"Proc_DeleteStaff {id} ", sqlConnection);
+            SqlCommand sqlCommand = new SqlCommand($"Proc_DeleteStaff ", sqlConnection);
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+            sqlCommand.Parameters.AddWithValue("@id", id);
+
+
             sqlCommand.ExecuteNonQuery();
             return true;
 
@@ -198,17 +256,10 @@ namespace StaffManagement.Data.DbStorage
         }
         private Staff _createTeachingStaffObject(SqlDataReader dataReader)
         {
-            int currentId = (int)dataReader["Id"];
-            string currentName = (string)dataReader["Name"];
-            List<string>  subjectsHandled = new List<string>();
-            bool flag = true;
-            while ((flag) && ((int)dataReader["Id"] == currentId))
-            {
-                subjectsHandled.Add((string)dataReader["SubjectName"]);
-                flag=dataReader.Read();
+            return new TeachingStaff((int)dataReader["Id"], (string)dataReader["Name"], (string)dataReader["SubjectHandled"]);
 
-            }
-            return new TeachingStaff(currentId, currentName, subjectsHandled);
+
+            
         }
 
 
@@ -216,7 +267,10 @@ namespace StaffManagement.Data.DbStorage
         {
             using SqlConnection sqlConnection = new SqlConnection(connectionString);
             sqlConnection.Open();
-            SqlCommand sqlCommand = new SqlCommand($"Proc_GetStaffWithId {staffId}", sqlConnection);
+            SqlCommand sqlCommand = new SqlCommand($"Proc_GetStaffWithId ", sqlConnection);
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+            sqlCommand.Parameters.AddWithValue("@id", staffId);
+
             SqlDataReader dataReader = sqlCommand.ExecuteReader();
             while (dataReader.Read())
             {
@@ -240,6 +294,7 @@ namespace StaffManagement.Data.DbStorage
             using SqlConnection sqlConnection = new SqlConnection(connectionString);
             sqlConnection.Open();
             SqlCommand sqlCommand = new SqlCommand($"Proc_GetAllStaff", sqlConnection);
+            sqlCommand.CommandType = CommandType.StoredProcedure;
             SqlDataReader dataReader = sqlCommand.ExecuteReader();
             List<Staff> staffList = new List<Staff>();
             bool flag = dataReader.Read();
@@ -262,23 +317,14 @@ namespace StaffManagement.Data.DbStorage
                         break;
 
                     case 3:
-                        int currentId = (int)dataReader["Id"];
-                        string currentName = (string)dataReader["Name"];
-                        List<string> subjectsHandled = new List<string>();
-                        while ((flag) && ((int)dataReader["Id"] == currentId))
-                        {
-                            subjectsHandled.Add((string)dataReader["SubjectName"]);
-                            flag = dataReader.Read();
-
-                        }
-                        staffList.Add(new TeachingStaff(currentId, currentName, subjectsHandled));
+                        staffList.Add(_createTeachingStaffObject(dataReader));
+                        flag = dataReader.Read();
                         break;
 
                     default:
                         return staffList;
                 }
             }
-
             return staffList;
 
         }

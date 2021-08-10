@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE Proc_UpdateAdmminStaff
+﻿CREATE PROCEDURE [dbo].[Proc_UpdateAdminStaff]
 	@id INT,
 	@name VARCHAR(255),
 	@section VARCHAR(255)

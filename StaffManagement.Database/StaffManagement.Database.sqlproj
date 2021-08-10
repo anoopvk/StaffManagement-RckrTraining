@@ -62,23 +62,22 @@
     <Folder Include="dbo\User Defined Types\" />
   </ItemGroup>
   <ItemGroup>
-    <Build Include="dbo\Tables\TeachingStaffToSubjectMapping.sql" />
     <Build Include="dbo\Tables\TeachingStaffDetails.sql" />
     <Build Include="dbo\Tables\SupportStaffDetails.sql" />
-    <Build Include="dbo\Tables\Subjects.sql" />
     <Build Include="dbo\Tables\StaffDetails.sql" />
     <Build Include="dbo\Tables\AdminStaffDetails.sql" />
     <Build Include="dbo\Stored Procedures\AddAdminStaff.sql" />
     <Build Include="dbo\Tables\StaffTypes.sql" />
     <Build Include="dbo\Stored Procedures\AddTeachingStaff.sql" />
     <Build Include="dbo\Stored Procedures\AddSupportStaff.sql" />
-    <Build Include="dbo\Stored Procedures\AddSubjectForTeacher.sql" />
     <Build Include="dbo\Stored Procedures\Proc_GetStaffWithId.sql" />
     <Build Include="dbo\Stored Procedures\Proc_GetAllStaff.sql" />
     <Build Include="dbo\Stored Procedures\Proc_UpdateTeachingStaff.sql" />
     <Build Include="dbo\Stored Procedures\Proc_UpdateSupportStaff.sql" />
-    <Build Include="dbo\Stored Procedures\Proc_UpdateAdmminStaff.sql" />
     <Build Include="dbo\Stored Procedures\Proc_DeleteStaff.sql" />
-    <Build Include="dbo\User Defined Types\SubjectTypeTable.sql" />
+    <Build Include="dbo\Stored Procedures\UpdateStaffInBulk.sql" />
+    <Build Include="dbo\Stored Procedures\Proc_UpdateAdminStaff.sql" />
+    <Build Include="dbo\Stored Procedures\AddStaffInBulk.sql" />
+    <Build Include="dbo\User Defined Types\StaffDetailsBulk.sql" />
   </ItemGroup>
 </Project>

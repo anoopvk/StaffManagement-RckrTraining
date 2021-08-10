@@ -24,6 +24,14 @@ namespace StaffManagement.Data
                 staffList.Add(s);
             }
         }
+        public void AddStaffInBulk(List<Staff> staffs)
+        {
+
+        }
+        public bool UpdateStaffInBulk(List<Staff> staffs)
+        {
+            return false;
+        }
         public Staff GetStaff(int staffId)
         {
             return staffList.Find(x => x.Id == staffId);

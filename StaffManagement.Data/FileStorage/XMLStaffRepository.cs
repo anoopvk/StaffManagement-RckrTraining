@@ -66,6 +66,16 @@ namespace StaffManagement.Data.FileStorage
 
 
         }
+
+        public void AddStaffInBulk(List<Staff> staffs)
+        {
+
+        }
+        public bool UpdateStaffInBulk(List<Staff> staffs)
+        {
+            return false;
+        }
+
         public Staff GetStaff(int staffId)
         {
             List<Staff> staffList = _GetDataFromXML();
