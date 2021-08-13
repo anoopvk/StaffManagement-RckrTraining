@@ -21,7 +21,7 @@ namespace StaffManagement.Data.DbStorage
 
             connectionString = (string)ConfigurationManager.AppSettings.Get("DbConnectionString");
         }
-        
+
 
 
         private void _addAdmminStaffToDB(Staff s)
@@ -39,7 +39,7 @@ namespace StaffManagement.Data.DbStorage
         private void _addSupportStaffToDb(Staff s)
         {
             SupportStaff supportStaff = (SupportStaff)s;
-            
+
             using SqlConnection sqlConnection = new SqlConnection(connectionString);
             sqlConnection.Open();
             SqlCommand sqlCommand = new SqlCommand($"AddSupportStaff ", sqlConnection);
@@ -65,13 +65,13 @@ namespace StaffManagement.Data.DbStorage
 
         public void AddStaff(Staff s)
         {
-            
+
 
             if (s.GetType() == typeof(AdministrativeStaff))
             {
                 _addAdmminStaffToDB(s);
             }
-            else if(s.GetType() == typeof(SupportStaff))
+            else if (s.GetType() == typeof(SupportStaff))
             {
                 _addSupportStaffToDb(s);
             }
@@ -99,7 +99,7 @@ namespace StaffManagement.Data.DbStorage
             {
                 row = staffTable.NewRow();
                 newId++;
-                row["Id"]= staff.Id;
+                row["Id"] = staff.Id;
                 row["Name"] = staff.Name;
 
                 row["StaffTypeId"] = DBNull.Value;
@@ -133,7 +133,7 @@ namespace StaffManagement.Data.DbStorage
 
         public void AddStaffInBulk(List<Staff> staffList)
         {
-            DataTable data =  _convertStaffListToDataTable(staffList);
+            DataTable data = _convertStaffListToDataTable(staffList);
             using SqlConnection sqlConnection = new SqlConnection(connectionString);
             sqlConnection.Open();
             SqlCommand sqlCommand = new SqlCommand($"AddStaffInBulk ", sqlConnection);
@@ -156,8 +156,12 @@ namespace StaffManagement.Data.DbStorage
             sqlCommand.Parameters.AddWithValue("@id", administrativeStaff.Id);
             sqlCommand.Parameters.AddWithValue("@name", administrativeStaff.Name);
             sqlCommand.Parameters.AddWithValue("@section", administrativeStaff.Section);
-            sqlCommand.ExecuteNonQuery();
-            return true;
+            int rowsAffected = sqlCommand.ExecuteNonQuery();
+            if (rowsAffected > 0)
+            {
+                return true;
+            }
+            return false;
         }
 
         private bool _updateSupportStaffToDb(Staff updatedStaff)
@@ -170,8 +174,12 @@ namespace StaffManagement.Data.DbStorage
             sqlCommand.Parameters.AddWithValue("@id", supportStaff.Id);
             sqlCommand.Parameters.AddWithValue("@name", supportStaff.Name);
             sqlCommand.Parameters.AddWithValue("@building", supportStaff.Building);
-            sqlCommand.ExecuteNonQuery();
-            return true;
+            int rowsAffected = sqlCommand.ExecuteNonQuery();
+            if (rowsAffected > 0)
+            {
+                return true;
+            }
+            return false;
         }
 
         private bool _updateTeachingStaffToDb(Staff updatedStaff)
@@ -184,26 +192,30 @@ namespace StaffManagement.Data.DbStorage
             sqlCommand.Parameters.AddWithValue("@id", teachingStaff.Id);
             sqlCommand.Parameters.AddWithValue("@name", teachingStaff.Name);
             sqlCommand.Parameters.AddWithValue("@subjectHandled", teachingStaff.SubjectHandled);
-            sqlCommand.ExecuteNonQuery();
-            return true;
+            int rowsAffected = sqlCommand.ExecuteNonQuery();
+            if (rowsAffected > 0)
+            {
+                return true;
+            }
+            return false;
         }
 
         public bool UpdateStaff(int id, Staff updatedStaff)
         {
             if (updatedStaff.GetType() == typeof(AdministrativeStaff))
             {
-                _updateAdmminStaffToDB(updatedStaff);
+                return _updateAdmminStaffToDB(updatedStaff);
             }
             else if (updatedStaff.GetType() == typeof(SupportStaff))
             {
-                _updateSupportStaffToDb(updatedStaff);
+                return _updateSupportStaffToDb(updatedStaff);
             }
             else if (updatedStaff.GetType() == typeof(TeachingStaff))
             {
-                _updateTeachingStaffToDb(updatedStaff);
+                return _updateTeachingStaffToDb(updatedStaff);
             }
 
-            return true;
+            return false;
         }
 
 
@@ -212,7 +224,7 @@ namespace StaffManagement.Data.DbStorage
         {
             DataTable data = _convertStaffListToDataTable(staffList);
 
-            
+
 
 
             using SqlConnection sqlConnection = new SqlConnection(connectionString);
@@ -236,14 +248,18 @@ namespace StaffManagement.Data.DbStorage
             sqlCommand.Parameters.AddWithValue("@id", id);
 
 
-            sqlCommand.ExecuteNonQuery();
-            return true;
+            int rowsAffected = sqlCommand.ExecuteNonQuery();
+            if (rowsAffected > 0)
+            {
+                return true;
+            }
+            return false;
 
         }
 
 
 
-        
+
 
 
         private Staff _createAdminStaffObject(SqlDataReader dataReader)
@@ -259,7 +275,7 @@ namespace StaffManagement.Data.DbStorage
             return new TeachingStaff((int)dataReader["Id"], (string)dataReader["Name"], (string)dataReader["SubjectHandled"]);
 
 
-            
+
         }
 
 
@@ -298,7 +314,7 @@ namespace StaffManagement.Data.DbStorage
             SqlDataReader dataReader = sqlCommand.ExecuteReader();
             List<Staff> staffList = new List<Staff>();
             bool flag = dataReader.Read();
-            
+
 
 
 

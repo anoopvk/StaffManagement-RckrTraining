@@ -22,7 +22,7 @@ namespace StaffManagement.Lib.Model
         public enum TypesOfStaff
         {
             AdministrativeStaff = 1,
-            SupportStaff=2,
+            SupportStaff = 2,
             TeachingStaff = 3
         }
         public TypesOfStaff StaffType { get; set; }
