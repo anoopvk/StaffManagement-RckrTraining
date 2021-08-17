@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff Manager</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <p id="a"></p>
+    <button onclick="showAddStaffForm()">Add staff</button>
+    <select name="staffType" id="selectStaffTypeToDisplay" onchange="showStaffByTypeTable()">
+        <option value="all" selected>All</option>
+      </select>
+
+    <table id="myTable" border="1px"></table>
+
+
+    <div id="addStaffContainer" class="popUpContainer">
+        <div class="popUpContent">
+            <form action="" id="addForm">
+
+                <select name="staffTypeForAdd" id="staffTypeForAdd" onchange="showAddStaffFormFields()">
+
+                </select>
+                <input type="hidden" id="staffTypeIdForAdd">
+
+                <div id="nameFieldForAdd">
+                    <label for="nameForAdd">name</label>
+                    <input type="text" placeholder="name" id="nameForAdd" required>
+                </div>
+
+
+                <div id="sectionFieldForAdd">
+                    <label for="sectionForAdd">section</label>
+                    <input type="text" placeholder="section" id="sectionForAdd">
+                </div>
+
+
+                <div id="subjectHandledFieldForAdd">
+                    <label for="subjectHandledForAdd">subject handled</label>
+                    <input type="text" placeholder="subject handled" id="subjectHandledForAdd">
+                </div>
+
+
+                <div id="buildingFieldForAdd">
+                    <label for="buildingForAdd">building</label>
+                    <input type="text" placeholder="building" id="buildingForAdd">
+                </div>
+
+                <input type="button" value="close" id="closeAddStaffBtn" onclick="closeAddForm()">
+                <input type="button" value="submit" onclick="addStaff()">
+            </form>
+        </div>
+    </div>
+
+    <div id="updateStaffContainer" class="popUpContainer">
+        <div class="popUpContent">
+            <form action="" id="updateForm">
+
+                <input type="hidden" id="idForUpdate">
+                <input type="hidden" id="staffTypeIdForUpdate">
+
+                <div id="nameFieldForUpdate">
+                    <label for="nameForUpdate">name</label>
+                    <input type="text" placeholder="name" id="nameForUpdate" required>
+                </div>
+
+
+                <div id="sectionFieldForUpdate">
+                    <label for="sectionForUpdate">section</label>
+                    <input type="text" placeholder="section" id="sectionForUpdate">
+                </div>
+
+
+                <div id="subjectHandledFieldForUpdate">
+                    <label for="subjectHandledForUpdate">subject handled</label>
+                    <input type="text" placeholder="subject handled" id="subjectHandledForUpdate">
+                </div>
+
+
+                <div id="buildingFieldForUpdate">
+                    <label for="buildingForUpdate">building</label>
+                    <input type="text" placeholder="building" id="buildingForUpdate">
+                </div>
+
+                <input type="button" value="close" id="closeBtn" onclick="closeUpdateForm()">
+                <input type="button" value="submit" onclick="updateStaff()">
+            </form>
+        </div>
+    </div>
+
+    <div id="deleteConfirmationContainer" class="popUpContainer">
+        <div class="popUpContent">
+
+            <input type="hidden" id="idForDelete">
+            <span>Are you sure you want to delete this staff?</span>
+            <button onclick="deleteStaff()">yes</button>
+            <button onclick="closeDeleteStaffConfirmation()">no</button>
+        </div>
+    </div>
+
+
+
+    <script src="staffTypes.js"></script>
+    <script src="helper.js"></script>
+    <script src="makeApiRequests.js"></script>
+    <script src="appsettings.js"></script>
+
+    <script src="addStaff.js"></script>
+    <script src="displayStaff.js"></script>
+    <script src="updateStaff.js"></script>
+    <script src="deleteStaff.js"></script>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
