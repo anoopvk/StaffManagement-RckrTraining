@@ -14,7 +14,7 @@
     <button onclick="showAddStaffForm()">Add staff</button>
     <select name="staffType" id="selectStaffTypeToDisplay" onchange="showStaffByTypeTable()">
         <option value="all" selected>All</option>
-      </select>
+    </select>
 
     <table id="myTable" border="1px"></table>
 
@@ -98,8 +98,10 @@
 
             <input type="hidden" id="idForDelete">
             <span>Are you sure you want to delete this staff?</span>
-            <button onclick="deleteStaff()">yes</button>
-            <button onclick="closeDeleteStaffConfirmation()">no</button>
+            <div>
+                <button onclick="deleteStaff()">yes</button>
+                <button onclick="closeDeleteStaffConfirmation()">no</button>
+            </div>
         </div>
     </div>
 

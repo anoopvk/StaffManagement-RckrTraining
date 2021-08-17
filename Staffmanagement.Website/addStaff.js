@@ -19,17 +19,17 @@ function showAddStaffFormFields() {
         document.getElementById("sectionFieldForAdd").style.display = "";
     }
     else if (staffTypes[staffTypeSelectedForAdd] == "SupportStaff") {
-        document.getElementById("subjectHandledFieldForAdd").style.display = "";
-
+        document.getElementById("buildingFieldForAdd").style.display = "";  
     }
     else if (staffTypes[staffTypeSelectedForAdd] == "TeachingStaff") {
-        document.getElementById("buildingFieldForAdd").style.display = "";
+        document.getElementById("subjectHandledFieldForAdd").style.display = "";
 
     }
     else {
         console.error("value for dropdown selection not found!");
     }
 }
+
 function closeAddForm() {
     document.getElementById("addStaffContainer").style.display = "none";
 
