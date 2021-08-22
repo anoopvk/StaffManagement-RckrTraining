@@ -104,6 +104,7 @@ async function deleteStaff() {
     response = await deleteStaffRequest(id);
     console.log(response);
     closeDeleteStaffConfirmation();
+    showStaffByTypeTable()
 }
 
 
