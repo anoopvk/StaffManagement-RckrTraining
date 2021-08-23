@@ -106,10 +106,21 @@
             </div>
         </div>
     </div>
+    <p> currentPage: </p>
+
     <select name="currentPage" id="currentPage" onchange="showStaffByTypeTable()">
         <option value="1">1</option>
     </select>
+    <br>
+    <p> rowsPerPage: </p>
+    <select name="rowsPerPage" id="rowsPerPage" onchange="showStaffByTypeTable()">
+        <option value="5">5</option>
+        <option value="10">10</option>
+        <option value="20">20</option>
+        <option value="50">50</option>
 
+
+    </select>
 
     <script src="staffTypes.js"></script>
     <script src="helper.js"></script>

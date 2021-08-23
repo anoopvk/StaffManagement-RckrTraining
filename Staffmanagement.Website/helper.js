@@ -195,9 +195,10 @@ function resetPageDropDown(pagesRequired=1){
 
 function paginate(data){
     
-    rowsPerPage=10;
+    rowsPerPage=document.getElementById("rowsPerPage").value;
     sizeOfData=data.length;
     pagesRequired=Math.ceil(sizeOfData/rowsPerPage);
+    resetPageDropDown(pagesRequired);
     currentPage = document.getElementById("currentPage").value;
     start=(currentPage-1)*rowsPerPage;
     end=currentPage*rowsPerPage;
@@ -207,7 +208,6 @@ function paginate(data){
     console.log("end=",end);
     console.log("sizeOfData=",sizeOfData);
 
-    resetPageDropDown(pagesRequired);
     return data.slice(start,Math.min(sizeOfData,end));
 
 }
