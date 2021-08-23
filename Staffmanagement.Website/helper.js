@@ -91,6 +91,7 @@ function showDeleteStaffConfirmation(staff) {
     document.getElementById("idForDelete").value = staff["id"];
     document.getElementById("deleteConfirmationContainer").style.display = "block";
     console.log("delete btn clicked", staff["id"])
+    document.getElementById("yesBottonDeleteConfirmation").onclick = function () { deleteStaff(); }
 }
 
 function closeDeleteStaffConfirmation() {
@@ -129,8 +130,6 @@ function showUpdateStaffForm(staff) {
     document.getElementById("updateStaffContainer").style.display = "block";
 }
 
-
-
 function closeUpdateForm() {
     document.getElementById("updateStaffContainer").style.display = "none";
 }
@@ -138,7 +137,7 @@ function closeUpdateForm() {
 async function updateStaff() {
     const form = document.getElementById("updateForm");
     console.log(form["nameForUpdate"].value);
-    if (form["nameForUpdate"].value==""){
+    if (form["nameForUpdate"].value == "") {
         alert("name is required");
         return false;
     }
@@ -154,4 +153,61 @@ async function updateStaff() {
 
     closeUpdateForm()
     showStaffByTypeTable()
+}
+
+async function showDeleteSelectedConfirmation() {
+    document.getElementById("deleteConfirmationContainer").style.display = "block";
+    document.getElementById("yesBottonDeleteConfirmation").onclick = function () { deleteSelected(); }
+}
+
+async function deleteSelected() {
+    let tableRows = document.getElementById("myTable").rows;
+    for (let index = 1; index < tableRows.length; index++) {
+        let checkbox = tableRows[index].getElementsByTagName("input")[0]
+        if (checkbox.checked == true) {
+            response = await deleteStaffRequest(checkbox.value);
+            console.log(response);
+        }
+    }
+    closeDeleteStaffConfirmation();
+    showStaffByTypeTable()
+}
+
+function resetPageDropDown(pagesRequired=1){
+    let dropDown=document.getElementById("currentPage");
+    currentPageSelection=dropDown.value;
+    console.log("currentPageSelection=",currentPageSelection)
+    console.log(dropDown.childNodes.length);
+    dropDown.innerHTML=""
+    for (let index = 0; index < pagesRequired; index++) {
+        let opt=document.createElement("option");
+        opt.value=index+1;
+        opt.innerHTML=index+1;
+        if (index+1==currentPageSelection){
+            opt.selected=true;
+        }
+        
+        dropDown.appendChild(opt);
+    }
+    // dropDown.selectedIndex=currentPageSelection-1;
+
+}
+
+function paginate(data){
+    
+    rowsPerPage=10;
+    sizeOfData=data.length;
+    pagesRequired=Math.ceil(sizeOfData/rowsPerPage);
+    currentPage = document.getElementById("currentPage").value;
+    start=(currentPage-1)*rowsPerPage;
+    end=currentPage*rowsPerPage;
+
+    console.log("pagesRequired=",pagesRequired);
+    console.log("start=",start);
+    console.log("end=",end);
+    console.log("sizeOfData=",sizeOfData);
+
+    resetPageDropDown(pagesRequired);
+    return data.slice(start,Math.min(sizeOfData,end));
+
 }

@@ -12,6 +12,8 @@
 <body>
     <p id="a"></p>
     <button onclick="showAddStaffForm()">Add staff</button>
+    <button onclick="showDeleteSelectedConfirmation()">Delete Selected</button>
+
     <select name="staffType" id="selectStaffTypeToDisplay" onchange="showStaffByTypeTable()">
         <option value="all" selected>All</option>
     </select>
@@ -99,12 +101,14 @@
             <input type="hidden" id="idForDelete">
             <span>Are you sure you want to delete this staff?</span>
             <div>
-                <button onclick="deleteStaff()">yes</button>
+                <button id="yesBottonDeleteConfirmation" onclick="deleteStaff()">yes</button>
                 <button onclick="closeDeleteStaffConfirmation()">no</button>
             </div>
         </div>
     </div>
-
+    <select name="currentPage" id="currentPage" onchange="showStaffByTypeTable()">
+        <option value="1">1</option>
+    </select>
 
 
     <script src="staffTypes.js"></script>

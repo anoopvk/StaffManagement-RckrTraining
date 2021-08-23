@@ -1,16 +1,20 @@
-async function getAllStaffRequest() {
-    const response = await fetch(appsettings.url, {
-        mode: "cors"
-    });
-    var data = await response.json();
-    return data;
-}
+// async function getAllStaffRequest() {
+//     const response = await fetch(appsettings.url, {
+//         mode: "cors"
+//     });
+//     var data = await response.json();
+//     return data;
+// }
 async function getAllStaffByTypeRequest(staffType){
     const response = await fetch(appsettings.url+"?staffType="+staffType, {
         mode: "cors"
     });
     var data = await response.json();
-    return data;
+
+    return paginate(data);
+
+
+    
 }
 
 async function postStaffRequest(body) {

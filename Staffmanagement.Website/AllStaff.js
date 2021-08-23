@@ -44,5 +44,28 @@ async function displayAllStaffs() {
         deleteBtn.onclick = function () { showDeleteStaffConfirmation(staff) };
         cellDeleteBtn.appendChild(deleteBtn);
 
+        let cellSelectStaffCheckbox=row.insertCell(7);
+        let selectStaffCheckbox=document.createElement("input");
+        selectStaffCheckbox.type="checkbox";
+        selectStaffCheckbox.className="selectStaffCheckbox";
+        selectStaffCheckbox.value=staff["id"];
+        // selectStaffCheckbox.onchange=function(){
+        //     let tableRows = document.getElementById("myTable").rows;
+        //     console.log(tableRows);
+        //     for (let index = 1; index < tableRows.length; index++) {
+        //         console.log(tableRows[index],index);
+        //         console.log(tableRows[index].getElementsByTagName("td")[0].innerHTML)
+        //         console.log(tableRows[index].getElementsByTagName("input")[0].checked,tableRows[index].getElementsByTagName("input")[0].value)
+                
+        //         // if (tableRows[index][0]){
+        //         //     console.log("------------",tableRows["index"].getElementsByTagName("td")[0])
+        //         // }
+        //     }
+
+
+        //     console.log("clicked checkbox")
+        
+        // }
+        cellSelectStaffCheckbox.appendChild(selectStaffCheckbox);
     }
 }
