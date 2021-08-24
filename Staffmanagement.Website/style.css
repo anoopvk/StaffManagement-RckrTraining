@@ -38,5 +38,6 @@ label{
 }
 
 #myTable{
-    min-width: 500px;
+    text-align: center;
+    min-width: 750px;
 }

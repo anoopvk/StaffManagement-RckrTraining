@@ -1,0 +1,402 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.header {
+    flex: 1;
+    display: flex;
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    /* border: 3px solid black; */
+    box-shadow: 0 4px 4px -4px black;
+    /* border-bottom: 2px solid rgb(194, 194, 194); */
+    margin: 0;
+}
+
+.header div {
+    text-align: center;
+}
+
+.logoContainer {
+    flex: 20%;
+    background-color: white;
+    /* height: 100%; */
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    position: relative;
+    margin: 10px;
+    width: 70px;
+    height: 70px;
+    line-height: 70px;
+    background-color: rgba(61, 62, 93, 255);
+}
+
+.logoText {
+    color: snow;
+    font-size: large;
+    font-weight: bolder;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.headingContainer {
+    flex: 60%;
+    background-color: rgb(255, 255, 255);
+    display: flex;
+    align-items: center;
+}
+
+.heading {
+    /* background-color: rgb(255, 255, 255); */
+    width: 100%;
+}
+
+.headingText {
+    /* background-color: rgb(255, 255, 255); */
+    font-size: 25px;
+    font-weight: bolder;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.userIconContainer {
+    /* background-color: saddlebrown; */
+    flex: 20%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.userIcon {
+    margin-right: 20px;
+    position: relative;
+    height: 70px;
+    width: 70px;
+    background-color: rgba(61, 62, 93, 255);
+    border-radius: 50%;
+}
+
+.userIconText {
+    /* background-color: rgb(14, 124, 0); */
+    font-size: 25px;
+    font-weight: bolder;
+    font-family: 'Times New Roman', Times, serif;
+    color: rgb(255, 255, 255);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.contentContainer {
+    flex: 7;
+    /* background-color: rgb(255, 230, 0); */
+    width: 100%;
+    display: flex;
+}
+
+.leftNavbar {
+    flex: 25%;
+    background-color: rgba(61, 62, 93, 255);
+    color: white;
+    /* height: 100%; */
+}
+
+.leftNavbarRow {
+    height: 50px;
+    display: flex;
+}
+
+.blankBoxMenuContainer {
+    /* margin-top: auto; */
+    /* margin-left: 10px; */
+    margin-left: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.blankBoxMenu {
+    width: 30px;
+    height: 30px;
+    margin: 5px;
+}
+
+.boxColor6 {
+    background-color: white;
+}
+
+.leftNavbarRowTitle {
+    margin-left: 10px;
+    margin-right: 10px;
+    line-height: 50px;
+    display: flex;
+    align-items: center;
+}
+
+.selectStaffTypeToDisplay {
+    /* width: 0px; */
+    /* align-items: center; */
+    margin: 5px;
+    height: 30px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: larger;
+    /* border: 2px solid rgb(255, 255, 255); */
+    /* box-shadow: 0 0 5px 1px rgb(255, 255, 255); */
+    /* min-width: 200px; */
+    background-color: rgb(224, 224, 224);
+}
+
+.selectStaffTypeToDisplay:focus {
+    /* border: 5px solid tomato; */
+    outline: none;
+}
+.selectStaffTypeToDisplay:hover{
+    background-color: rgb(216, 216, 216);
+}
+
+.content {
+    flex: 75%;
+    margin: 10px;
+}
+
+/* .content *{
+    margin: 5px;
+} */
+
+.emptyBoxes {
+    display: flex;
+    height: 100px;
+    /* background-color: white; */
+}
+
+.emptyBox1 {
+    margin: 2px;
+    flex: 30%;
+    background-color: white;
+    box-shadow: 0px 0px 5px black;
+}
+
+.emptyBox2 {
+    margin: 2px;
+    flex: 20%;
+    background-color: white;
+    box-shadow: 0px 0px 5px black;
+}
+
+.emptyBox3 {
+    margin: 2px;
+    flex: 50%;
+    background-color: white;
+    box-shadow: 0px 0px 5px black;
+}
+
+.contentText {
+    margin: 2px;
+    margin-top: 20px;
+}
+
+.contentMiddleRowContainer {
+    display: flex;
+    margin-top: 10px;
+}
+
+.contentMiddleRowLeftColumnContainer {
+    flex: 50%;
+    margin: 10px;
+}
+
+.tileRow {
+    /* background-color: blanchedalmond; */
+    display: flex;
+}
+
+.tileColumn {
+    flex: 50%;
+    /* background-color: chocolate; */
+    /* display: inline-block; */
+    display: flex;
+    margin: 5px;
+}
+
+.tileInnerBoxContainer {
+    flex: 20%;
+    margin: 5px;
+}
+
+.tileInnerBox {
+    background-color: black;
+    height: 30px;
+    width: 30px;
+}
+
+.boxColor1 {
+    background-color: rgba(255, 0, 102, 255);
+}
+
+.boxColor2 {
+    background-color: rgba(0, 0, 254, 255);
+}
+
+.boxColor3 {
+    background-color: rgba(1, 204, 0, 255);
+}
+
+.boxColor4 {
+    background-color: rgba(255, 102, 0, 255);
+}
+
+.tileContent {
+    flex: 80%;
+}
+
+.tileTitle {
+    font-weight: bolder;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: larger;
+}
+
+.tileContent {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.contentMiddleRowRightColumnContainer {
+    flex: 50%;
+    margin: 10px;
+}
+
+.blankBoxLarge {
+    float: left;
+    height: 70px;
+    width: 70px;
+    margin: 5px;
+}
+
+.boxColor5 {
+    background-color: rgba(61, 62, 93, 255);
+}
+
+.contentMiddleRowRightColumnContent {
+    margin: 5px;
+}
+
+.tableContainer {
+    /* width: 100%; */
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    border:rgba(235, 235, 235, 255);
+    margin: 5px;
+}
+
+.table td, .table th {
+    padding: 5px;
+    /* border: none; */
+}
+
+.table tr {
+    background-color: rgba(242, 242, 242, 255);
+}
+
+.table tr:nth-child(even) {
+    background-color: rgba(255, 255, 255, 255);
+}
+
+.userProfileDetails {
+    background-color: rgb(255, 255, 255);
+    position: absolute;
+    height: 180px;
+    width: 200px;
+    top: 100px;
+    right: 75px;
+    border: 1px solid black;
+    box-shadow: 0 0 10px black;
+}
+
+.userProfileDetailsOptions {
+    position: relative;
+    margin: 15px;
+}
+
+.ManageAccount {
+    font-size: larger;
+    font-weight: bolder;
+}
+
+.signoutContainer {
+    position: absolute;
+    margin: 15px;
+    bottom: 0;
+}
+
+.signoutBtn {
+    background-color: rgba(85, 85, 85, 255);
+    color: white;
+    border: none;
+    padding: 10px;
+}
+
+.signoutBtn:hover {
+    background-color: rgb(47, 47, 47);
+}
+
+.popUpContainer {
+    display: none;
+    position: fixed;
+    z-index: 10;
+    /* padding: 100px; */
+    left: 0;
+    top: 0;
+    overflow: auto;
+    border: 2px solid black;
+    width: 100%;
+    height: 100%;
+    /* background-color: rgb(0,0,0);  */
+    background-color: rgba(0, 0, 0, 0.4);
+    /* margin: auto; */
+}
+
+.popUpContent {
+    text-align: center;
+    background-color: rgba(61, 62, 93, 255);
+    color: white;
+    /* background-color: rgba(135, 200, 222, 1); */
+    margin: auto;
+    margin-top: 100px;
+    padding: 20px;
+    width: 400px;
+    height: 300px;
+    border-radius: 15px;
+    border: 2px solid black;
+    box-shadow: 0px 0px 20px black;
+}
+
+Form>div {
+    padding: 5px;
+}
+
+label {
+    display: inline-block;
+    width: 150px;
+}
+
+#myTable {
+    text-align: center;
+    min-width: 750px;
+}
+
+button{
+    min-height: 30px;
+    min-width: 50px;
+    margin: 5px;
+    font-weight: 600;
+
+}

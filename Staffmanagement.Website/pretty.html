@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>$$$$$$$$</title>
+    <link rel="stylesheet" href="prettyStyle.css">
+</head>
+
+<body>
+    <div class="header">
+
+        <div class="logoContainer">
+            <div class="logo">
+                <div class="logoText">
+                    LOGO
+                </div>
+            </div>
+        </div>
+
+        <div class="headingContainer">
+            <div class="heading">
+                <div class="headingText">
+                    Staff Management System
+                </div>
+            </div>
+        </div>
+
+        <div class="userIconContainer">
+            <div class="userIcon">
+                <div class="userIconText">
+                    PM
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <div class="contentContainer">
+        <div class="leftNavbar">
+            <!-- <div class="leftNavbarRow">
+                <div class="blankBoxMenuContainer">
+                    <div class="blankBoxMenu boxColor6"></div>
+                </div>
+                <div class="leftNavbarRowTitle">
+                    Menu
+                </div>
+            </div> -->
+            <div class="leftNavbarRow">
+                <div class="blankBoxMenuContainer">
+                    <div class="blankBoxMenu boxColor6"></div>
+                </div>
+                <div class="leftNavbarRowTitle">
+                    <select name="staffType" id="selectStaffTypeToDisplay" class="selectStaffTypeToDisplay" onchange="showStaffByTypeTable()">
+                        <option value="all" selected>All</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="content">
+
+            <div class="contentText">
+                <button onclick="showAddStaffForm()">Add staff</button>
+                <button onclick="showDeleteSelectedConfirmation()">Delete Selected</button>
+                <button onclick="showDeleteAllConfirmation()">Delete All</button>
+
+
+
+                <div id="StaffFormContainer" class="popUpContainer">
+                    <div class="popUpContent">
+                        <form action="" id="staffForm">
+                            <input type="hidden" id="id">
+                            <input type="hidden" id="staffTypeId">
+
+                            <select name="staffType" id="staffType" onchange="showAddStaffForm()">
+
+                            </select>
+
+                            <div id="nameField">
+                                <label for="name">name</label>
+                                <input type="text" placeholder="name" id="name" required>
+                            </div>
+
+
+                            <div id="sectionField">
+                                <label for="section">section</label>
+                                <input type="text" placeholder="section" id="section">
+                            </div>
+
+
+                            <div id="subjectHandledField">
+                                <label for="subjectHandled">subject handled</label>
+                                <input type="text" placeholder="subject handled" id="subjectHandled">
+                            </div>
+
+
+                            <div id="buildingField">
+                                <label for="building">building</label>
+                                <input type="text" placeholder="building" id="building">
+                            </div>
+
+                            <input type="button" value="close" id="closeAddStaffBtn" onclick="closeForm()">
+                            <input type="button" value="submit" id="formSubmitBtn" onclick="">
+                        </form>
+                    </div>
+                </div>
+
+
+
+                <div id="deleteConfirmationContainer" class="popUpContainer">
+                    <div class="popUpContent">
+
+                        <input type="hidden" id="idForDelete">
+                        <span>Are you sure you want to delete this staff?</span>
+                        <div>
+                            <button id="yesBottonDeleteConfirmation" onclick="deleteStaff()">yes</button>
+                            <button onclick="closeDeleteStaffConfirmation()">no</button>
+                        </div>
+                    </div>
+                </div>
+
+                
+
+                <div>
+                    <span> rowsPerPage: </span>
+                    <input type="number" id="rowsPerPage" min="1" max="100" value="5" required>
+                    <button onclick="showStaffByTypeTable()">Go</button>
+
+                </div>
+            </div>
+
+            <!-- <div class="contentMiddleRowContainer">
+                <div class="contentMiddleRowLeftColumnContainer">
+                    <div class="tileRow">
+
+                        <div class="tileColumn">
+                            <div class="tileInnerBoxContainer">
+                                <div class="tileInnerBox boxColor1"></div>
+                            </div>
+                            <div class="tileContent">
+                                <div class="tileTitle">
+                                    Title1
+                                </div>
+                                <div class="tileContent">
+                                    Description1
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tileColumn">
+                            <div class="tileInnerBoxContainer">
+                                <div class="tileInnerBox boxColor2"></div>
+                            </div>
+                            <div class="tileContent">
+                                <div class="tileTitle">
+                                    Title2
+                                </div>
+                                <div class="tileContent">
+                                    Description2
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tileRow">
+
+                        <div class="tileColumn">
+                            <div class="tileInnerBoxContainer">
+                                <div class="tileInnerBox boxColor3"></div>
+                            </div>
+                            <div class="tileContent">
+                                <div class="tileTitle">
+                                    Title3
+                                </div>
+                                <div class="tileContent">
+                                    Description3
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tileColumn">
+                            <div class="tileInnerBoxContainer">
+                                <div class="tileInnerBox boxColor4"></div>
+                            </div>
+                            <div class="tileContent">
+                                <div class="tileTitle">
+                                    Title4
+                                </div>
+                                <div class="tileContent">
+                                    Description4
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="contentMiddleRowRightColumnContainer">
+                    <div class="blankBoxLarge boxColor5"></div>
+                    <div class="contentMiddleRowRightColumnContent">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                        labore et
+                        dolore magna aliqua. Quis lectus nulla at volutpat diam ut venenatis. Consectetur adipiscing
+                        elit ut
+                        aliquam
+                    </div>
+                </div>
+
+            </div> -->
+
+            <div class="tableContainer">
+
+                <table id="myTable" border="1px" class="table"></table>
+
+            </div>
+            <div>
+                <span> currentPage: </span>
+                <select name="currentPage" id="currentPage" onchange="showStaffByTypeTable()">
+                    <option value="1">1</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <!-- <div class="userProfileDetails">
+        <div class="userProfileDetailsOptions">
+            <div class="ManageAccount">Manage Account</div>
+        </div>
+        <div class="signoutContainer">
+            <button class="signoutBtn">Signout</button>
+        </div>
+    </div> -->
+
+    <script src="staffTypes.js"></script>
+    <script src="helper.js"></script>
+    <script src="makeApiRequests.js"></script>
+    <script src="appsettings.js"></script>
+
+    <script src="AllStaff.js"></script>
+    <script src="AdministrativeStaff.js"></script>
+    <script src="SupportStaff.js"></script>
+    <script src="TeachingStaff.js"></script>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

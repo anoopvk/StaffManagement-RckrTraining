@@ -22,80 +22,46 @@
 
     <table id="myTable" border="1px"></table>
 
-
-    <div id="addStaffContainer" class="popUpContainer">
+    <div id="StaffFormContainer" class="popUpContainer">
         <div class="popUpContent">
-            <form action="" id="addForm">
+            <form action="" id="staffForm">
+                <input type="hidden" id="id">
+                <input type="hidden" id="staffTypeId">
 
-                <select name="staffTypeForAdd" id="staffTypeForAdd" onchange="showAddStaffForm()">
+                <select name="staffType" id="staffType" onchange="showAddStaffForm()">
 
                 </select>
-                <input type="hidden" id="staffTypeIdForAdd">
 
-                <div id="nameFieldForAdd">
-                    <label for="nameForAdd">name</label>
-                    <input type="text" placeholder="name" id="nameForAdd" required>
+                <div id="nameField">
+                    <label for="name">name</label>
+                    <input type="text" placeholder="name" id="name" required>
                 </div>
 
 
-                <div id="sectionFieldForAdd">
-                    <label for="sectionForAdd">section</label>
-                    <input type="text" placeholder="section" id="sectionForAdd">
+                <div id="sectionField">
+                    <label for="section">section</label>
+                    <input type="text" placeholder="section" id="section">
                 </div>
 
 
-                <div id="subjectHandledFieldForAdd">
-                    <label for="subjectHandledForAdd">subject handled</label>
-                    <input type="text" placeholder="subject handled" id="subjectHandledForAdd">
+                <div id="subjectHandledField">
+                    <label for="subjectHandled">subject handled</label>
+                    <input type="text" placeholder="subject handled" id="subjectHandled">
                 </div>
 
 
-                <div id="buildingFieldForAdd">
-                    <label for="buildingForAdd">building</label>
-                    <input type="text" placeholder="building" id="buildingForAdd">
+                <div id="buildingField">
+                    <label for="building">building</label>
+                    <input type="text" placeholder="building" id="building">
                 </div>
 
-                <input type="button" value="close" id="closeAddStaffBtn" onclick="closeAddForm()">
-                <input type="button" value="submit" onclick="addStaff()">
+                <input type="button" value="close" id="closeAddStaffBtn" onclick="closeForm()">
+                <input type="button" value="submit" id="formSubmitBtn" onclick="">
             </form>
         </div>
     </div>
 
-    <div id="updateStaffContainer" class="popUpContainer">
-        <div class="popUpContent">
-            <form action="" id="updateForm">
 
-                <input type="hidden" id="idForUpdate">
-                <input type="hidden" id="staffTypeIdForUpdate">
-
-                <div id="nameFieldForUpdate">
-                    <label for="nameForUpdate">name</label>
-                    <input type="text" placeholder="name" id="nameForUpdate" required>
-                </div>
-
-
-                <div id="sectionFieldForUpdate">
-                    <label for="sectionForUpdate">section</label>
-                    <input type="text" placeholder="section" id="sectionForUpdate">
-                </div>
-
-
-                <div id="subjectHandledFieldForUpdate">
-                    <label for="subjectHandledForUpdate">subject handled</label>
-                    <input type="text" placeholder="subject handled" id="subjectHandledForUpdate">
-                </div>
-
-
-                <div id="buildingFieldForUpdate">
-                    <label for="buildingForUpdate">building</label>
-                    <input type="text" placeholder="building" id="buildingForUpdate">
-                </div>
-
-                <input type="button" value="close" id="closeBtn" onclick="closeUpdateForm()">
-                <input type="button" value="submit" onclick="updateStaff()">
-            </form>
-        </div>
-    </div>
 
     <div id="deleteConfirmationContainer" class="popUpContainer">
         <div class="popUpContent">
@@ -114,17 +80,19 @@
         <select name="currentPage" id="currentPage" onchange="showStaffByTypeTable()">
             <option value="1">1</option>
         </select>
+        <span id="pageNumberContainer">
+
+        </span>
     </div>
 
     <div>
         <span> rowsPerPage: </span>
-        <select name="rowsPerPage" id="rowsPerPage" onchange="showStaffByTypeTable()">
-            <option value="5">5</option>
-            <option value="10">10</option>
-            <option value="20">20</option>
-            <option value="50">50</option>
-        </select>
+        <input type="number" id="rowsPerPage" min="1" max="100" value="5" required>
+        <button onclick="showStaffByTypeTable()">Go</button>
+       
     </div>
+
+    
     <script src="staffTypes.js"></script>
     <script src="helper.js"></script>
     <script src="makeApiRequests.js"></script>

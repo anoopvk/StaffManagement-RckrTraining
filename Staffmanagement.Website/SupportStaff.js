@@ -8,23 +8,14 @@ async function displaySupportStaffs() {
 
 function showAddSupportStaffForm(){
     console.log("inside showAddSupportStaffForm")
-
-    document.getElementById("nameForAdd").value = ""
-    document.getElementById("sectionForAdd").value = "";
-    document.getElementById("buildingForAdd").value = "";
-    document.getElementById("subjectHandledForAdd").value = "";
-
-    document.getElementById("sectionFieldForAdd").style.display = "none";
-    document.getElementById("subjectHandledFieldForAdd").style.display = "none";
-    document.getElementById("buildingFieldForAdd").style.display = "";
-
-    
+    emptyStaffForm();
+    hideSecondaryStaffFormFields();
+    document.getElementById("buildingField").style.display = "";
 }
 
 
 
 function showUpdateSupportStaffForm(){
-    document.getElementById("sectionFieldForUpdate").style.display = "none";
-    document.getElementById("subjectHandledFieldForUpdate").style.display = "none";
-    document.getElementById("buildingFieldForUpdate").style.display = "";
+    hideSecondaryStaffFormFields();
+    document.getElementById("buildingField").style.display = "";
 }

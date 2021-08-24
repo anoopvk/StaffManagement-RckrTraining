@@ -10,22 +10,16 @@ async function displayTeachingStaffs() {
 function showAddTeachingStaffForm(){
     console.log("inside showAddTeachingStaffForm")
 
-    document.getElementById("nameForAdd").value = ""
-    document.getElementById("sectionForAdd").value = "";
-    document.getElementById("buildingForAdd").value = "";
-    document.getElementById("subjectHandledForAdd").value = "";
-
-    document.getElementById("sectionFieldForAdd").style.display = "none";
-    document.getElementById("subjectHandledFieldForAdd").style.display = "";
-    document.getElementById("buildingFieldForAdd").style.display = "none";
+    emptyStaffForm();
+    hideSecondaryStaffFormFields();
+    document.getElementById("subjectHandledField").style.display = "";
 
     
 }
 
 
 function showUpdateTeachingStaffForm(){
-    document.getElementById("sectionFieldForUpdate").style.display = "none";
-    document.getElementById("subjectHandledFieldForUpdate").style.display = "";
-    document.getElementById("buildingFieldForUpdate").style.display = "none";
-
+    hideSecondaryStaffFormFields();
+    document.getElementById("subjectHandledField").style.display = "";
+    
 }

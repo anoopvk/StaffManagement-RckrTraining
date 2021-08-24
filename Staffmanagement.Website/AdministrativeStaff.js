@@ -8,20 +8,13 @@ async function displayAdministrativeStaffs() {
 
 function showAddAdministrativeStaffForm(){
     console.log("inside showAddAdministrativeStaffForm")
-    document.getElementById("nameForAdd").value = ""
-    document.getElementById("sectionForAdd").value = "";
-    document.getElementById("buildingForAdd").value = "";
-    document.getElementById("subjectHandledForAdd").value = "";
-
-    document.getElementById("sectionFieldForAdd").style.display = "";
-    document.getElementById("subjectHandledFieldForAdd").style.display = "none";
-    document.getElementById("buildingFieldForAdd").style.display = "none";
-
+    emptyStaffForm();
+    hideSecondaryStaffFormFields();
+    document.getElementById("sectionField").style.display = "";
     
 }
 
 function showUpdateAdministrativeStaffForm(){
-    document.getElementById("sectionFieldForUpdate").style.display = "";
-    document.getElementById("subjectHandledFieldForUpdate").style.display = "none";
-    document.getElementById("buildingFieldForUpdate").style.display = "none";
+    hideSecondaryStaffFormFields();
+    document.getElementById("sectionField").style.display = "";
 }
